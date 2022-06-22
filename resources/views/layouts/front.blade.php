@@ -545,6 +545,64 @@
 		<!-- Jquery Plugins, main Jquery -->	
         <script src="{{ asset('assets/js/plugins.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>
+
+        <script>
+            // calcultae cost once unit is inputed
+            $('#unit-input').on('input', function(){
+                calculateCost();
+            })
+
+            $('#cost-input').on('input', function(){
+                calculateUnit();
+            })
+            function calculateCost(){
+                const unitCost = parseFloat({{ siteSetting()->cost_per_unit }});
+                const unit = parseFloat($('#unit-input').val());
+                const totalCost = unit*unitCost;
+                $('#cost-input').val(!isNaN(totalCost) ? totalCost : 0);
+                $('#cost').text(parseFloat(!isNaN(totalCost) ? totalCost : 0));
+                // $('#paystack-amount').val(unit*unitCost)
+                
+            }
+
+
+            function calculateUnit(){
+                var unitCost = parseFloat({{ siteSetting()->cost_per_unit }});
+                let cost = parseFloat($('#cost-input').val());
+                $('#unit-input').val(!isNaN(parseFloat(cost/unitCost)) ? parseFloat(cost/unitCost) :0);
+                // $('#cost').text(cost);
+                // $('#paystack-amount').val(cost);
+                
+            }
+
+            $('#contact-form-btn').on('click', function(){
+                let $this = $(this);
+                let oldHtml = $this.html();
+                $this.html('<i class="fa fa-spin fa-spinner"></i>');
+                $this.attr('disabled', true);
+                const formData = $('#contact-form').serialize();
+                $.ajax({
+                    type:"POST",
+                    url:"{{ route('send-contact-form-mail') }}",
+                    data:formData,
+                    success:function(response){
+                        alert(response.status=='success'?response.message:JSON.parse(response).error);
+                        $this.attr('disabled', false);
+                        $this.html(oldHtml);
+                        $('#contact-form').find("[name=name]").val('');
+                        $('#contact-form').find("[name=email]").val('');
+                        $('#contact-form').find("[name=message]").val('');
+                    },
+                    error:function(param1, param,param3){
+                        alert(param3)
+                        $this.attr('disabled', false);
+                        $this.html(oldHtml);
+                    }
+                });
+            })
+
+            
+        </script>
         
     </body>
 </html>

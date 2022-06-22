@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Payment;
-
+use App\Models\Payment;
 use App\Custom\Generic;
-use App\UnitPurchase;
+use App\Models\UnitPurchase;
 use Auth;
 
 class PaymentController extends Controller

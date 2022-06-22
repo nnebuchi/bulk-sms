@@ -5,34 +5,23 @@
     <main>
 
         <style>
-        
-
-        .hero__caption h2{
-            font-size: 25px;
-            margin-top: -10px;
-        }
-        @media(max-width: 1000px) {
             .hero__caption h2{
-           display: none;
-        }
-
-        }
-
-        @media(min-width: 1200px){
-            .what-to-find-title{
-                margin-top: -100px!important
+                font-size: 25px;
+                margin-top: -10px;
+            }
+            @media(max-width: 1000px) {
+                .hero__caption h2{
+                    display: none;
+                }
             }
 
-        
-        }
-
-        /* @media(max-width: 768px){
-            .hero-title{
-                font-size:10px!important;
+            @media(min-width: 1200px){
+                .what-to-find-title{
+                    margin-top: -100px!important
+                }
             }
-        } */
-    </style>
-    <!-- Slider Area Start-->
+        </style>
+        <!-- Slider Area Start-->
         <div class="slider-area">
             <div class="slider-active">
                 <div class="single-slider slider-height slider-padding sky-blue d-flex align-items-center slider-1">
@@ -192,7 +181,7 @@
                    <div class="one"><p>unit-price converter</p></div>
                    <div class="two">
                        <label><p><i class="fa fa-balance-scale"></i> unit</p></label>
-                       <input type="text" placeholder="Number of unit">
+                       <input type="number" min="0" placeholder="Number of unit" id="unit-input">
                    </div>
                    <div class="three">
                        <div id="arrows">
@@ -202,7 +191,7 @@
                    </div>
                    <div class="four">
                     <label><p><i>&#8358</i> Price</p></label>
-                     <input type="text" placeholder="Price of unit">
+                     <input type="number" min="0" placeholder="Price of unit" id="cost-input">
                    </div>
                    <div class="five"> 
                        <p>units are availiable for your pocket size.</p>
@@ -284,16 +273,17 @@
                         <div class="contact-us" >
                             <div class="section-title" >
                                 
-                                <form>
+                                <form method="post" id="contact-form">
+                                    @csrf
                                     <label for="email" class="form-label">Email address:</label>
                                         <div class="mb-4 input-group">
                                             <span class="input-group-text">
                                                 <i class="fa fa-envelope"></i>
                                             </span>
-                                            <input type="email" class="form-control " id="email" placeholder="eg.mario@example.com">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="eg.mario@example.com">
                                             <!-- tooltip -->
                                             <span class="input-group-text">
-                                                <span class="tt" data-bs-placement="bottom" title="enter an email adress we can reply to.">
+                                                <span class="tt" name="title" data-bs-placement="bottom" title="enter an email adress we can reply to.">
                                                     <i class="fa fa-info-circle "></i>
                                                 </span>
                                                 
@@ -305,7 +295,7 @@
                                         <span class="input-group-text">
                                             <i class="fa fa-user"></i>
                                         </span>
-                                        <input type="text" class="form-control " id="name" placeholder="eg.Mario"s>
+                                        <input type="text" class="form-control" name="name" id="name" placeholder="eg.Mario"s>
                                         <!-- tooltip -->
                                         <span class="input-group-text">
                                             <span class="tt" data-bs-placement="bottom" title="we prefer you username">
@@ -318,7 +308,7 @@
             
                                     <label for="query"> what do you want to tell us....</label>
                                     <div class="form-floating mb-3">
-                                        <textarea class="form-control" id="query" rows="5" placeholder="share your thoughts with us here..."></textarea>
+                                        <textarea class="form-control" name="message" id="query" rows="5" placeholder="share your thoughts with us here..."></textarea>
                                        
                                     </div>
             
@@ -326,8 +316,8 @@
                                         <button type="submit" class=" btn btn-secondary">submit</button>
                                     </div> -->
                                     <span class="contact-btn">
-                                    <a href="#" class="btn " style="border-radius: 50px; padding: 15px; width: 100%; font-size: 25px"><i class="fa fa-paper-plane pr-2"></i>Send</a>
-                                </span>
+                                        <button class="btn" type="button" id="contact-form-btn" style="border-radius: 50px; padding: 15px; width: 100%; font-size: 25px"><i class="fa fa-paper-plane pr-2"></i>Send</button>
+                                    </span>
                                 </form>
                                 
                             </div>
@@ -378,9 +368,6 @@
             </div>
         </div>
         <!-- Say Something End -->
-
-
-
-
+        
     </main>
 @endsection

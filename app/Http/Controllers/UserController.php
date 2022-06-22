@@ -7,8 +7,8 @@ use App\Mail\UserRegisterMail;
 use Mail;
 use App\Mail\PasswordResetMail;
 use Auth;
-use App\PasswordReset;
-use App\User;
+use App\Models\PasswordReset;
+use App\Models\User;
 
 class UserController extends Controller
 {

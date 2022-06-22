@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\UnitPurchase;
+use App\Models\UnitPurchase;
 use Auth;
 
 class CreditController extends Controller

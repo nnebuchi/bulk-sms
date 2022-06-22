@@ -4,8 +4,8 @@
 	 */
 	namespace App\Custom;
 
-	use App\ApiIntegration;
-	use App\SmsLog;
+	use App\Models\ApiIntegration;
+	use App\Models\SmsLog;
 	
 	class NigeriaBulkSMS
 	{

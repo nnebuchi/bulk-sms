@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Message;
-use Str;
-use Auth;
-use App\Contact;
-use App\MessageContact;
-use DB;
-use App\MessageSchedule;
+use App\Models\Message;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Contact;
+use App\Models\MessageContact;
+use App\Models\MessageSchedule;
 use App\Custom\SendMessage;
 
 class SmsController extends Controller

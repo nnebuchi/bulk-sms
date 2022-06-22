@@ -2,12 +2,13 @@
 
 namespace App\Mail;
 
+use App\Models\Enquiry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegisterMail extends Mailable
+class ContactFormSubmissionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,10 +17,10 @@ class UserRegisterMail extends Mailable
      *
      * @return void
      */
-    public $user;
-    public function __construct($user)
+    public $enquiry;
+    public function __construct($enquiry)
     {
-        $this->user = $user;
+        $this->enquiry = $enquiry;
     }
 
     /**
@@ -29,6 +30,6 @@ class UserRegisterMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.user-regmail')->subject('Welcome to Skezzole - just one more step!');
+        return $this->view('mail.enquiry-mail')->subject('Contact Form Message - '.env('APP_NAME'));
     }
 }

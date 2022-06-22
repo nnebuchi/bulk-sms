@@ -543,16 +543,14 @@
 
                 calculateUnit();
             })
-           function calculateCost(){
-            var unitCost = parseFloat({{ siteSetting()->cost_per_unit }});
-            let unit = parseFloat($('#unit-input').val());
-            $('#cost-input').val(unit*unitCost);
-            $('#cost').text(unit*unitCost);
-            $('#paystack-amount').val(unit*unitCost)
-            togglePaymentButton();
-            
-            
-           }
+            function calculateCost(){
+                var unitCost = parseFloat({{ siteSetting()->cost_per_unit }});
+                let unit = parseFloat($('#unit-input').val());
+                $('#cost-input').val(unit*unitCost);
+                $('#cost').text(unit*unitCost);
+                $('#paystack-amount').val(unit*unitCost)
+                togglePaymentButton();
+            }
 
 
             function calculateUnit(){
@@ -562,7 +560,7 @@
                 $('#cost').text(cost);
                 $('#paystack-amount').val(cost);
                 togglePaymentButton();
-           }
+            }
 
             function activateStatus(){
                 $.ajax({

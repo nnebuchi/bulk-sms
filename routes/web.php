@@ -32,11 +32,10 @@ Route::get('/forgot-password', function(){
 })->name('forgot-password');
 
 Route::post('/send-password-reset-link', 'UserController@sendPasswordResetLink')->name('send-password-reset-link');
-
 Route::get('password-reset-feedback',  'UserController@PasswordResetFeedBack')->name('password-reset-feedback');
 Route::get('password-reset/{email}/{token}', 'UserController@PasswordReset')->name('password-reset');
 Route::post('change-password', 'UserController@changePassword')->name('change-password');
-
+Route::post('send-contact-form-mail', 'GenericController@submitContactForm')->name('send-contact-form-mail');
 
 Auth::routes(['verify' => true]);
 
