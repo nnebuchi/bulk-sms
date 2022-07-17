@@ -13,24 +13,11 @@
 		});
 	</script>
 	<div class="main-container">
-		@include('layouts.shared.alert')
+		
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
-				<div class="page-header">
-					<div class="row">
-						<div class="col-md-12 col-sm-12">
-							<div class="title">
-							</div>
-							<nav aria-label="breadcrumb" role="navigation">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Create Contact</li>
-								</ol>
-							</nav>
-						</div>
-					</div>
-				</div>
-
+				@include('layouts.shared.dashboard.page-header')
+				@include('layouts.shared.alert')
 				<div class="row clearfix">
 					<div class="col-lg-12 col-md-12 col-sm-12 mb-30">
 						<div class="pd-20 card-box">

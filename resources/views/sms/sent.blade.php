@@ -1,32 +1,18 @@
 @extends('layouts.dashboard.app')
-@section('title', 'Create Contact')
+@section('title', 'Sent Messages')
+@section('actionLink', route('compose-sms'))
+@section('actionText', 'Compose Message')
+@section('actionIcon', `<i class="fa fa-pencil"></i>`)
 @section('content')
 
 <div class="main-container">
-	 @include('layouts.shared.alert')
 		<div class="pd-ltr-20 xs-pd-20-10">
 			<div class="min-height-200px">
-				<div class="page-header">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="title">
-								<h4>Sent Messages</h4>
-							</div>
-							<nav aria-label="breadcrumb" role="navigation">
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Sent</li>
-								</ol>
-							</nav>
-						</div>
-						
-					</div>
-				</div>
+				@include('layouts.shared.dashboard.page-header')
+				@include('layouts.shared.alert')
 				<!-- Simple Datatable start -->
 				<div class="card-box mb-30">
-					<div class="pd-20">
-						<h4 class="text-blue h4">Sent messages</h4>
-					</div>
+					@include('layouts.shared.dashboard.action-panel')
 					<div class="pb-20">
 						<table class="data-table table stripe hover nowrap">
 							<thead>
