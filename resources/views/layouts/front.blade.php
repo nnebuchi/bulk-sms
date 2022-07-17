@@ -380,7 +380,11 @@
                             <div class="d-block d-lg-none mobile-auth ml-auto">
                                 
                                 <!-- <a href="#" class="mr-2"  >Login</a> -->
-                                <a href="{{route('register')}}" class="text-dark" style="padding: 8px 13px; background-color: #375c8c; color: white !important; border-radius: 5px; ">Register</a>
+                                @auth
+                                    <a href="{{route('home')}}" class="text-dark" style="padding: 8px 13px; background-color: #375c8c; color: white !important; border-radius: 5px; ">Dashboard</a>
+                                @else
+                                    <a href="{{route('register')}}" class="text-dark" style="padding: 8px 13px; background-color: #375c8c; color: white !important; border-radius: 5px; ">Register</a>
+                                @endauth
                             </div>
                             
                         </div>
@@ -395,7 +399,11 @@
                                         <li><a href="#pricing">Pricing</a></li>
                                         <li><a href="#contact-us" >Contact Us</a></li>
                                         
-                                        <li><a href="{{ route('login') }}" class="my-btn" id="nav-btn">Login</a></li>
+                                        @auth
+                                            <a href="{{route('home')}}" class="text-dark" style="padding: 8px 13px; background-color: #375c8c; color: white !important; border-radius: 5px; ">Dashboard</a>
+                                        @else
+                                            <li><a href="{{ route('login') }}" class="my-btn" id="nav-btn">Login</a></li>
+                                        @endauth
                                     </ul>
                                 </nav>
                             </div>

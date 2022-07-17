@@ -143,8 +143,7 @@
 			}
 			
 		})
-		var pcount = 0;
-
+		var pcount = 1;
 		// countChar();
 
 		function countChar(){
@@ -192,7 +191,7 @@
 	    // });
 
 	   // $('#contact-input').on('input', function(){
-	   // 		alert('hey')
+	
 	   // })
 
 	   $(document).ready(function(){

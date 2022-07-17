@@ -206,7 +206,7 @@
 							alert('hey')
 							swal({
 				                title: 'Insufficient Units?',
-				                text: "You only have "+availableUnits+" units but your message requires at least "+requiredUnits+" units to deliver to all numbers. If you want to continue, click proceed and we shall send your message to first "+Math.trunc(capacity)+" numbers only",
+				                text: "You only have "+availableUnits+" units but your message requires at least "+requiredUnits+" units to deliver to all numbers. If you want to continue, click proceed and we shall send your message to first "+Math.trunc(capacity)+" numbers only.",
 				                icon: 'warning',
 				                buttons: true,
 				                // confirmButtonClass: 'btn btn-success',

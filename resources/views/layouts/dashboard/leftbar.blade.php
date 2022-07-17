@@ -1,6 +1,6 @@
 <div class="left-side-bar">
 		<div class="brand-logo">
-			<a href="{{ url('/') }}">
+			<a href="javascript:void(0)">
 				<img src="{{ asset('dashboard/vendors/images/logo.png') }}" alt="" class="dark-logo">
 				<img src="{{ asset('dashboard/vendors/images/logo-dark.png') }}" alt="" class="light-logo">
 			</a>
@@ -12,10 +12,15 @@
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
 					<li>
-							<a href="{{ url('home') }}" class="dropdown-toggle no-arrow">
-								<span class="micon"> <i class=" fa fa-dashboard"></i></span><span class="mtext">Dashboard</span>
-							</a>
-						</li>
+						<a href="{{ url('/') }}" class="dropdown-toggle no-arrow">
+							<span class="micon"> <i class=" fa fa-home"></i></span><span class="mtext">Home</span>
+						</a>
+					</li>
+					<li>
+						<a href="{{ url('home') }}" class="dropdown-toggle no-arrow">
+							<span class="micon"> <i class=" fa fa-dashboard"></i></span><span class="mtext">Dashboard</span>
+						</a>
+					</li>
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon"> <i class=" fa fa-envelope-open-o"></i></span><span class="mtext">SMS</span>
