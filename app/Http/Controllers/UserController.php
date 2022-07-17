@@ -23,7 +23,7 @@ class UserController extends Controller
     // }
     
     public function resendVerificationMail(Request $request){
-        $user = User::here('id', Auth::user()->id)->first();
+        $user = User::where('id', Auth::user()->id)->first();
         $user->verification_code = sha1(Str::random('7'));
         $user->verified_expiry_date = strtotime('+3 days');
         $user->save();
