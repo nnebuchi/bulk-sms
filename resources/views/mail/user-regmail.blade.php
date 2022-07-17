@@ -1,9 +1,10 @@
 <style>
-	.auth-btn{
-		font-weight: 600; background-color: #1d2840; color: white; padding: 7px 12px; border: 1px solid transparent; border-radius: 5px; text-decoration:none;
-	}
+	
 	.auth-btn:hover{
 		background-color: transparent; border: 1px solid #1d2840; color: #1d2840;
+	}
+	.auth-btn{
+		font-weight: 600; background-color: #1d2840; color: white; padding: 7px 12px; border: 1px solid transparent; border-radius: 5px; text-decoration:none;
 	}
 	.text-skezzole{
 		color: #628c23;
@@ -27,7 +28,7 @@
 	<p>What happens next?.</p>
 	<p>Please click on the "Verify Email" button below</p>
 
-	<p><a href="{{ url('verify-email/'.$email.'/'.$verification_code) }}" class="btn auth-btn">Verify Email</a></p>
+	<p><a href="{{ url('verify-email/'.$email.'/'.$verification_code) }}" class="btn auth-btn" style="font-weight: 600; background-color: #1d2840; color: white; padding: 7px 12px; border: 1px solid transparent; border-radius: 5px; text-decoration:none;">Verify Email</a></p>
 
 	<p>OR</p>
 	<p>Copy the link below and paste it in your favourite browser and hit the enter button. That should do it. Winks. </p>
