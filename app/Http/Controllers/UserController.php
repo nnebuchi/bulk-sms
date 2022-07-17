@@ -44,6 +44,11 @@ class UserController extends Controller
         if (is_null($user)) {
             die('invalid verification link');
         }
+        if($user->email_verified_at){
+            Session(['msg'=>'This account is already verified', 'alert'=>'info']);
+            return redirect('home');
+        }
+
         if ($user->verified_expiry_date<time()) {
 
            Session(['email'=>$email, 'alert'=>'danger', 'msg'=>'verification link expired. we have resent a new link just now.']);
