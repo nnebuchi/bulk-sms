@@ -8,7 +8,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use App\Mail\ContactFormSubmissionMail;
 use Illuminate\Support\Facades\Mail;
 
-class ContactFormListner
+class ContactFormListener
 {
     /**
      * Create the event listener.

@@ -35,8 +35,15 @@
 				</div>
 				<!-- Checkbox select Datatable start -->
 				<div class="card-box mb-30">
-					<div class="pd-20">
-						<h4 class="text-blue h4">My Contacts</h4>
+					<div class="pd-20 row">
+						<div class="col-sm-6">
+							<h4 class="text-blue h4">My Contacts</h4>
+						</div>
+						<div class="col-sm-6 text-sm-right">
+							<a href="{{ route('create-contact') }}" class="btn btn-primary ">New Contact</a>
+						</div>
+						{{-- <br class="d-md-none"> --}}
+						
 					</div>
 					<div class="pb-20">
 						<table class="checkbox-datatable table nowrap">

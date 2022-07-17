@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\UserRegisterMail;
-use Mail;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetMail;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use App\Models\PasswordReset;
 use App\Models\User;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -19,10 +21,10 @@ class UserController extends Controller
     // public function emailVerification(){
     //     return view('auth.verify_email');
     // }
-
+    
     public function resendVerificationMail(Request $request){
-        $user = Auth::user();
-        $user->verification_code = sha1(\Str::random('7'));
+        $user = User::here('id', Auth::user()->id)->first();
+        $user->verification_code = sha1(Str::random('7'));
         $user->verified_expiry_date = strtotime('+3 days');
         $user->save();
         Mail::to($user->email)->send(new UserRegisterMail($user));
@@ -69,7 +71,7 @@ class UserController extends Controller
              PasswordReset::where('email', $user->email)->delete();
              $passwordReset = new PasswordReset();
              $passwordReset->email = $user->email;
-             $passwordReset->token = \Str::random(30);
+             $passwordReset->token = Str::random(30);
              $passwordReset->expiry = strtotime(env('PASSWORD_RESET_EXPIRY'));
              $passwordReset->save();
              Mail::to($passwordReset->email)->send(new PasswordResetMail($passwordReset));
@@ -105,7 +107,7 @@ class UserController extends Controller
       
 
       $user = User::where('email', session('email'))->first();
-      $user->password = \Hash::make($request->password);
+      $user->password = Hash::make($request->password);
       $user->save();
       Session(['msg'=>'Password reset successful. Login to proceed', 'alert'=>'info']);
       session()->forget('email');

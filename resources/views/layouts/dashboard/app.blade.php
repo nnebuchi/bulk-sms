@@ -62,6 +62,19 @@
     	var url = "{{ url('/') }}";
     	var universal_token = "{{ csrf_token() }}"
     </script>
+
+	<style>
+
+		@media(max-width:576px){
+			.h4, h4{
+				font-size: 1rem!important;
+			}
+			.breadcrumb-item{
+				font-size: 0.85rem!important;
+			}
+		}
+		
+	</style>
 </head>
 <body>
 

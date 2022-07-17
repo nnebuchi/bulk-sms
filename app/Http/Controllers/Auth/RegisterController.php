@@ -9,8 +9,8 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Mail\UserRegisterMail;
-use Mail;
-use Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -63,7 +63,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \App\Model\User
      */
     protected function create(array $data)
     {
@@ -82,6 +82,7 @@ class RegisterController extends Controller
         $user->save();
 
         Mail::to($user->email)->send(new UserRegisterMail($user));
+        
         Session(['email'=>$user->email]);
         return $user;
         // return redirect()->route('verify-email');
