@@ -252,13 +252,14 @@
 
 				            }).then((proceed)=>{
 				            	if (proceed) {
-									sendMessage(msgSlug, cc, 'numbers');
+									sendMessage(msgSlug, cc, 'contacts');
 								}
-								$this.html(oldHtml)
+
+								$this.html(oldHtml);
 							})
 						}else{
 							// return;
-							sendMessage(msgSlug, cc, 'numbers')
+							sendMessage(msgSlug, cc, 'contacts');
 						}
 					
 					}
@@ -322,15 +323,12 @@
 				let fulldate = date+'-'+month+'-'+year+' '+hour+':'+minute+' '+ampm;
 
 				let recipientption = $('#send-option').val();
-				console.log(recipientption)
-				// let msgContent = $('#message-content').val();
-				// let msgTitle = $('#title').val();
+				
 				if (recipientption=='existing') {
 					let msgSlug = $('#message-slug').val();
 					let Receivingcontacts = $('.existing').val()
 					console.log(Receivingcontacts)
 					$.ajax({
-
 						type: 'POST',
 						url: "{{ route('shedule-message') }}",
 						data: {
