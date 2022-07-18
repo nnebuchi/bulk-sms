@@ -375,7 +375,7 @@
                         <!-- Logo -->
                         <div class="col-xl-2 col-lg-2 col-10 form-inline">
                             <div class="logo">
-                                <a href="index.html"><img src="{{ asset('assets/img/logo/logo.png')}}" alt=""></a>
+                                <a href="{{ url('/') }}"><img src="{{ asset('assets/img/logo/logo.png')}}" alt=""></a>
                             </div>
                             <div class="d-block d-lg-none mobile-auth ml-auto">
                                 
@@ -503,7 +503,7 @@
                         <div class="footer-copy-right">
                            <p>
                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | powered by <a href="#" target="_blank"><img src="assets/img/logo/logo.png" alt="" width="80"></a>  template by <a href="https://colorlib.com/" target="_blank">Colorlib</a>
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | powered by <a href="#" target="_blank"><img src="assets/img/logo/logo.png" alt="" width="80"></a>  
                                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                             </p>
                         </div>

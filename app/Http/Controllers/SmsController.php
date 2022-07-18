@@ -105,7 +105,8 @@ class SmsController extends Controller
             $sendArr = explode(',', $contact->numbers);
             $sendArr = array_slice($sendArr, 0, $capacity);
             $requiredUnits  = count($sendArr) * $pageCount;
-            if ($requiredUnits>Auth::user()->units->sum('available_units')) {
+            
+            if ($requiredUnits <= Auth::user()->units->sum('available_units')) {
                 // call the send message class
                 // $sendNow = 'ooo';
 
@@ -128,7 +129,7 @@ class SmsController extends Controller
                 }
 
                 Session(['msg'=>'sending in progress', 'alert'=>'success']);
-                return json_encode(['status'=>'success', 'message_status'=>'sending in progress', 'msg_slug'=>$message->slug, 'response'=>$sendNow]);
+                return json_encode(['status'=>'success', 'message_status'=>'sending in progress', 'msg_slug'=>$message->slug, 'response'=>$response]);
             }else{
                 return json_encode(['status'=>'fail', 'message'=>'insufficient credits']);
             }

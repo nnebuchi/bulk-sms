@@ -2,8 +2,8 @@
 	namespace App\Custom;
 
 	use Pnlinh\InfobipSms\Facades\InfobipSms;
-	use App\UnitPurchase;
-	use App\ApiIntegration;
+	use App\Models\UnitPurchase;
+	use App\Models\ApiIntegration;
 	use App\Custom\NigeriaBulkSMS;
 	
 	class SendMessage

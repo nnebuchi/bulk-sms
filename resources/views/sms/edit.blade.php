@@ -203,7 +203,7 @@
 						let requiredUnits = parseFloat(numSplit.length) * parseFloat(pcount);
 						let capacity = availableUnits/parseFloat(pcount);
 						if (requiredUnits > availableUnits) {
-							alert('hey')
+							
 							swal({
 				                title: 'Insufficient Units?',
 				                text: "You only have "+availableUnits+" units but your message requires at least "+requiredUnits+" units to deliver to all numbers. If you want to continue, click proceed and we shall send your message to first "+Math.trunc(capacity)+" numbers only.",
@@ -227,7 +227,7 @@
 										success:function(response){
 											let feedback = JSON.parse(response);
 											if (feedback.status == 'success') {
-												console.log(feedback);
+												console.log(feedback.status);
 												$this.html(oldHtml)
 												return;
 
@@ -261,10 +261,7 @@
 								success:function(response){
 									let feedback = JSON.parse(response);
 									if (feedback.status == 'success') {
-										console.log(feedback);
-										$this.html(oldHtml)
-										return;
-
+										window.location.replace("{{ route('sent-sms') }}");
 									}else{
 										$this.html(oldHtml)
 										swal({
@@ -280,7 +277,6 @@
 								}
 							});
 						}
-						
 						
 					}
 					// if sending to existing contatcs
@@ -320,6 +316,7 @@
 											_token: universal_token
 										},
 										success:function(response){
+											console.log(response)
 											let feedback = JSON.parse(response);
 											if (feedback.status == 'success') {
 												window.location.replace("{{ route('sent-sms') }}");
@@ -346,8 +343,9 @@
 									_token: universal_token
 								},
 								success:function(response){
+									console.log(response)
 									$this.html(oldHtml)
-									let feedback = JSON.parse(response);
+									let feedback = response;
 									if (feedback.status == 'success') {
 										window.location.replace("{{ route('sent-sms') }}");
 
@@ -364,7 +362,6 @@
 						}
 					
 					}
-				
 				 
 				}
 			});
@@ -524,6 +521,34 @@
 					
 				}
 				
+			}
+
+			function sendMessage(msgSlug, numbers){
+				$.ajax({
+					type: 'POST',
+					url: "{{ route('send-composed-message') }}",
+					data: {
+						slug: msgSlug,
+						numbers: numbers,
+						_token: universal_token
+					},
+					success:function(response){
+						let feedback = JSON.parse(response);
+						if (feedback.status == 'success') {
+							window.location.replace("{{ route('sent-sms') }}");
+						}else{
+							$this.html(oldHtml)
+							swal({
+								title: feedback.status,
+								text: feedback.msg,
+								icon: feedback.alert,
+							})
+							$this.html(oldHtml)
+							console.log(response);
+							return;
+						}
+					}
+				});
 			}
 
 		})
