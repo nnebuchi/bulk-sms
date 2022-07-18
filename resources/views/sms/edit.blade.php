@@ -215,13 +215,13 @@
 
 				            }).then((proceed)=>{
 				            	if (proceed) {
-				            		sendMessage(msgSlug, numbers)
+				            		sendMessage(msgSlug, numbers, 'numbers')
 				            	}
 				            })
 				            $this.html(oldHtml)
 						}else{
 
-							sendMessage(msgSlug, numbers)
+							sendMessage(msgSlug, numbers, 'numbers')
 						}
 						
 					}
@@ -252,13 +252,13 @@
 
 				            }).then((proceed)=>{
 				            	if (proceed) {
-									sendMessage(msgSlug, numbers);
+									sendMessage(msgSlug, cc, 'numbers');
 								}
 								$this.html(oldHtml)
 							})
 						}else{
 							// return;
-							sendMessage(msgSlug, numbers)
+							sendMessage(msgSlug, cc, 'numbers')
 						}
 					
 					}
@@ -423,15 +423,25 @@
 				
 			}
 
-			function sendMessage(msgSlug, numbers){
+			function sendMessage(msgSlug, data, contactTypes){
+				if(contactTypes=='numbers'){
+					let payLoad = {
+						slug: msgSlug,
+						numbers: data,
+						_token: universal_token
+					}
+				}
+				if(contactTypes=='contact'){
+					let payLoad = {
+						slug: msgSlug,
+						contacts: data,
+						_token: universal_token
+					}
+				}
 				$.ajax({
 					type: 'POST',
 					url: "{{ route('send-composed-message') }}",
-					data: {
-						slug: msgSlug,
-						numbers: numbers,
-						_token: universal_token
-					},
+					data: payLoad,
 					success:function(response){
 						let feedback = JSON.parse(response);
 						if (feedback.status == 'success') {
