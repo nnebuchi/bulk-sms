@@ -215,67 +215,13 @@
 
 				            }).then((proceed)=>{
 				            	if (proceed) {
-				            		$.ajax({
-
-										type: 'POST',
-										url: "{{ route('send-composed-message') }}",
-										data: {
-											slug: msgSlug,
-											numbers: numbers,
-											_token: universal_token
-										},
-										success:function(response){
-											let feedback = JSON.parse(response);
-											if (feedback.status == 'success') {
-												console.log(feedback.status);
-												$this.html(oldHtml)
-												return;
-
-											}else{
-												swal({
-									                title: feedback.status,
-									                text: feedback.msg,
-									                icon: feedback.alert,
-
-									            })
-												console.log(response);
-												$this.html(oldHtml)
-												return;
-											}
-										}
-									});
+				            		sendMessage(msgSlug, numbers)
 				            	}
 				            })
 				            $this.html(oldHtml)
 						}else{
 
-							$.ajax({
-
-								type: 'POST',
-								url: "{{ route('send-composed-message') }}",
-								data: {
-									slug: msgSlug,
-									numbers: numbers,
-									_token: universal_token
-								},
-								success:function(response){
-									let feedback = JSON.parse(response);
-									if (feedback.status == 'success') {
-										window.location.replace("{{ route('sent-sms') }}");
-									}else{
-										$this.html(oldHtml)
-										swal({
-							                title: feedback.status,
-							                text: feedback.msg,
-							                icon: feedback.alert,
-
-							            })
-							            $this.html(oldHtml)
-										console.log(response);
-										return;
-									}
-								}
-							});
+							sendMessage(msgSlug, numbers)
 						}
 						
 					}
@@ -306,59 +252,13 @@
 
 				            }).then((proceed)=>{
 				            	if (proceed) {
-									$.ajax({
-
-										type: 'POST',
-										url: "{{ route('send-composed-message') }}",
-										data: {
-											slug: msgSlug,
-											contacts: cc,
-											_token: universal_token
-										},
-										success:function(response){
-											console.log(response)
-											let feedback = JSON.parse(response);
-											if (feedback.status == 'success') {
-												window.location.replace("{{ route('sent-sms') }}");
-
-											}else{
-												alert('Something went wrong');
-											}
-											console.log(response);
-											 // $('#message-slug').val(response);
-										}
-									});
+									sendMessage(msgSlug, numbers);
 								}
 								$this.html(oldHtml)
 							})
 						}else{
 							// return;
-							$.ajax({
-
-								type: 'POST',
-								url: "{{ route('send-composed-message') }}",
-								data: {
-									slug: msgSlug,
-									contacts: cc,
-									_token: universal_token
-								},
-								success:function(response){
-									console.log(response)
-									$this.html(oldHtml)
-									let feedback = response;
-									if (feedback.status == 'success') {
-										window.location.replace("{{ route('sent-sms') }}");
-
-									}
-									console.log(response);
-									$this.html(oldHtml)
-									 // $('#message-slug').val(response);
-								},
-								error:function(par1, par2, par3){
-									alert(par3)
-									$this.html(oldHtml)
-								}
-							});
+							sendMessage(msgSlug, numbers)
 						}
 					
 					}
@@ -547,6 +447,10 @@
 							console.log(response);
 							return;
 						}
+					},
+					error:function(par1, par2, par3){
+						alert(par3)
+						$this.html(oldHtml)
 					}
 				});
 			}
