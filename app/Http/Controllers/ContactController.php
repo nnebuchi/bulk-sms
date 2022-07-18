@@ -39,9 +39,7 @@ class ContactController extends Controller
             foreach ($numArr as $key => $num) {
                 $first3 = substr($num, 0, 3);
                 if ($first3!='234') {
-
                     $num = '234'.ltrim($num, $num[0]);
-                    
                 }
 
                 $numArr[$key] = $num;
@@ -187,7 +185,7 @@ class ContactController extends Controller
             $contact->title = $title;
             $contact->save();
             Session(['msg'=>'Successful', 'alert'=>'success']);
-            return redirect()->back();
+            return redirect()->route('contact-detail', $contact->slug);
         }
     }
 
