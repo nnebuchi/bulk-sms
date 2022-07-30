@@ -14,13 +14,12 @@
 							<h4 class="text-blue h4">Edit message</h4>
 							<p class="mb-30">Your message is saved automatically as you type</p>
 						</div>
-					
 					</div>
 					<form>
 						<div class="form-group">
 							<label class="col-form-label">Message Title</label>
-								<input class="form-control compulsory-field" id="title" type="text" placeholder="Message title" value="{{ $message->title }}" required>
-								<p class="text-danger" style="display: none;">This Field is Required</p>
+							<input class="form-control compulsory-field" id="title" type="text" placeholder="Message title" value="{{ $message->title }}" required>
+							<p class="text-danger" style="display: none;">This Field is Required</p>
 						</div>
 						<div class="form-group">
 							<label class=" col-form-label">Message Content</label>
@@ -73,15 +72,13 @@
 								<p class="text-danger" style="display: none;">This Field is Required</p>
 							</div> 
 							<div class="col-12 text-right">
-								<a href="javascript:void(0)" id="send-later" class="btn">Send later <i class="fa fa-calendar"></i></a>
+								{{-- <a href="javascript:void(0)" id="send-later" class="btn">Send later <i class="fa fa-calendar"></i></a> --}}
 								<button class="btn" type="button" id="send-now">Send now<i class="fa fa-paper-plane"></i></button>
 							</div>
 
 							
 						</div>
 					</form>
-						
-						
 				</div>
 			</div>
 		</div>
@@ -421,46 +418,82 @@
 				
 			}
 
-			function sendMessage(msgSlug, data, contactTypes){
-				if(contactTypes=='numbers'){
-					let payLoad = {
-						slug: msgSlug,
-						numbers: data,
-						_token: universal_token
-					}
-				}
-				if(contactTypes=='contact'){
-					let payLoad = {
-						slug: msgSlug,
-						contacts: data,
-						_token: universal_token
-					}
-				}
-				$.ajax({
-					type: 'POST',
-					url: "{{ route('send-composed-message') }}",
-					data: payLoad,
-					success:function(response){
-						let feedback = JSON.parse(response);
-						if (feedback.status == 'success') {
-							window.location.replace("{{ route('sent-sms') }}");
-						}else{
-							$this.html(oldHtml)
-							swal({
-								title: feedback.status,
-								text: feedback.msg,
-								icon: feedback.alert,
-							})
-							$this.html(oldHtml)
-							console.log(response);
-							return;
+			 function sendMessage(msgSlug, data, contactTypes){
+
+				// alert(contactTypes);return;
+				const setData = async (contactTypes)=>{
+					
+					if(contactTypes=='numbers'){
+						
+						return  {
+							slug: msgSlug,
+							numbers: data,
+							_token: universal_token
 						}
-					},
-					error:function(par1, par2, par3){
-						alert(par3)
-						$this.html(oldHtml)
 					}
-				});
+
+					if(contactTypes=='contacts'){
+						// alert(contactTypes);
+						return  {
+							slug: msgSlug,
+							contacts: data,
+							_token: universal_token
+						}
+					}
+				
+					
+				}
+				// return;
+				// setData(contactTypes).then(data => console.log(data));
+				
+				 
+				setData(contactTypes).then(payLoad => deliverMessage(payLoad));
+
+				function deliverMessage(payLoad){
+					
+					$.ajax({
+						type: 'POST',
+						url: "{{ route('send-composed-message') }}",
+						data: payLoad,
+						success:function(response){
+
+							let feedback = JSON.parse(response);
+
+							if (feedback.status == 'success') {
+
+								window.location.replace("{{ route('sent-sms') }}");
+
+							}else{
+
+								$this.html(oldHtml);
+
+								swal({
+									title: feedback.status,
+									text: feedback.msg,
+									icon: feedback.alert,
+								})
+
+								$this.html(oldHtml)
+
+								console.log(response);
+
+								return;
+							}
+						},
+						error:function(par1, par2, par3){
+
+							alert(par3)
+
+							$this.html(oldHtml)
+						}
+					});
+					
+				}
+
+				
+				
+				
+				
 			}
 
 		})

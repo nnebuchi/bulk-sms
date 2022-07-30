@@ -12,7 +12,7 @@
                     <div class="col-md-1"></div>
                     <div class="col-md-7 welcome-note">
                         <h4 class="font-20 weight-500 mb-10 text-capitalize mt-3 mt-md-0">
-                            Welcome back <span class="weight-600 font-30 text-blue">{{ Auth::user()->username }}!</span>
+                            Welcome <span class="weight-600 font-30 text-blue">{{ Auth::user()->username }}!</span>
                         </h4>
                         <p class="font-18 max-width-600">Please protect your login details and feel free to customise your dashboard to suit you.</p>
                         <p>Always remember to check your unit balance (available units) before sending a message. Insufficient balance? <a href="{{ route('buy-unit') }}"><strong>buy here</strong></a></p>

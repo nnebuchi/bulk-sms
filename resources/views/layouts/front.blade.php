@@ -24,6 +24,23 @@
         <link rel="stylesheet" href="{{ asset('assets/css/nice-select.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+        <!-- GetButton.io widget -->
+            <script type="text/javascript">
+                (function () {
+                    var options = {
+                        whatsapp: "+2349070640845", // WhatsApp number
+                        call_to_action: "Message us", // Call to action
+                        button_color: "#ff6f0f", // Color of button
+                        position: "left", // Position may be 'right' or 'left'
+                        pre_filled_message: "", // WhatsApp pre-filled message
+                    };
+                    var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
+                    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+                    s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+                    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+                })();
+            </script>
+    <!-- /GetButton.io widget -->
         <style>
             .logo img{
                 height: 30px;
