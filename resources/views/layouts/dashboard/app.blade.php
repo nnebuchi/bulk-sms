@@ -126,6 +126,14 @@
 	<script>
 
 		$('.options').hide();
+		const defaultOption =$('#send-option').val();
+		$('#'+defaultOption).show();
+		// $('#send-option').on('change', function(){
+		// 	let $this = $(this);
+		// 	let option = $this.val();
+		// 	$('.options').hide();
+		// 	$('#'+option).show();
+		// })
 		// Character & Page counter
 		$('#message-content').on('keydown', function(e){
 

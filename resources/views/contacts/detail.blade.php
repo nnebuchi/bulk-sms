@@ -60,7 +60,7 @@
 									{{-- <td class="table-plus">Gloria F. Mead</td> --}}
 									<td>{{ $count }}</td>
 									@isset($names)
-										<th id="name-{{ $count }}">{{ $names[$key] }}</th>
+										<th id="name-{{ $count }}">{{ array_key_exists($key, $names) ?  $names[$key] : ''}}</th>
 									@endisset
 									<td id="number-{{ $count }}">{{ $number }}</td>
 									<th>
@@ -88,13 +88,11 @@
 											        	</div>
 											        	@isset($names)
 											        	<div class="form-group">
-											        		<input type="text" name="name" class="form-control" value="{{ $names[$key] }}">
-											        		<input type="hidden" name="old_name" value="{{ $names[$key] }}">
+											        		<input type="text" name="name" class="form-control" value="{{array_key_exists($key, $names) ? $names[$key] : '' }}">
+											        		<input type="hidden" name="old_name" value="{{array_key_exists($key, $names) ? $names[$key] : ''}}">
 											        	</div>
 											        	@endisset
 											        	
-
-											        
 											      </div>
 											      <div class="modal-footer">
 											        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -256,4 +254,10 @@
 
 					});
 				</script>
+
+
+{{-- @php
+	
+dd($names)
+@endphp --}}
 @endsection
