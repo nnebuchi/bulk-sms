@@ -23,7 +23,7 @@
 						</div>
 						<div class="form-group">
 							<label class=" col-form-label">Message Content</label>
-							<textarea class="form-control compulsory-field" name="message" id="message-content" placeholder="start typing..." >{{ $message->content }}</textarea>
+							<textarea class="form-control compulsory-field" name="message" id="message-content" onblur="saveMessage()" placeholder="start typing..." >{{ $message->content }}</textarea>
 							<p class="text-danger" style="display: none;">This Field is Required</p>
 							<input type="hidden" id="message-slug" value="{{ $message->slug }}">
 						</div>
@@ -114,47 +114,48 @@
 {{-- 	{{ dd($contactArr) }} --}}
 	<script>
 		
+		setInterval(() => {
+			saveMessage()
+		}, 10000);
+
+		function saveMessage(){
+			
+			let $this =$('#message-content')
+
+			let msgSlug = $('#message-slug').val();
+
+			let content = $this.val();
+			let title = $('#title').val();
+			if(content.length > 0 && title.length > 0){
+				$.ajax({
+					type: 'POST',
+					url: "{{ route('save-message') }}",
+					data: {
+						title: title,
+						content: content,
+						slug: msgSlug,
+						_token: universal_token
+					},
+					success:function(resonse){
+						console.log('saved')
+					}
+				});
+			}
+			
+		}
+
+
+		
+
 		$(document).ready(function(){
 			@isset($contactArr)
 				var contactArr = <?= json_encode($contactArr) ?>;
 			@else
 				var contactArr = {};
 			@endisset
-
-			var typeCount = 0
-			$('#message-content').on('input', function(){
-				// alert('yes')
-				let $this = $(this)
-				typeCount = typeCount+1;
-				if (typeCount==1) {
-					setInterval(function(){
-						let msgSlug = $('#message-slug').val();
-
-						let content = $this.val();
-						let title = $('#title').val();
-						console.log(content);
-						// alert(content)
-						// return;
-						$.ajax({
-							type: 'POST',
-							url: "{{ route('save-message') }}",
-							data: {
-								title: title,
-								content: content,
-								slug: msgSlug,
-								_token: universal_token
-							},
-							success:function(response){
-								console.log(response);
-								 $('#message-slug').val(response);
-							}
-						});
-					}, 5000);
-				}
-				
 			
+
 			
-			})
 			// when the send no button is clicked
 
 			$('#send-now').on('click', function(){
@@ -182,9 +183,7 @@
 					
 				}
 				let target = $('.'+option);
-				// console.log(target.className);
 				if (target.val()=='') {
-					// console.log()
 					validate('.'+option);
 					$this.html(oldHtml)
 					return
@@ -287,9 +286,7 @@
 					
 				}
 				let target = $('.'+option);
-				// console.log(target.className);
 				if (target.val()=='') {
-					// console.log()
 					validate('.'+option);
 					return
 				}else{
@@ -324,7 +321,6 @@
 				if (recipientption=='existing') {
 					let msgSlug = $('#message-slug').val();
 					let Receivingcontacts = $('.existing').val()
-					console.log(Receivingcontacts)
 					$.ajax({
 						type: 'POST',
 						url: "{{ route('shedule-message') }}",
@@ -353,7 +349,7 @@
 					let msgSlug = $('#message-slug').val();
 					let Receivingcontacts = $('.existing').val();
 					let ReceivingNumbers = $('#contact-input').val();
-					console.log(Receivingcontacts)
+					
 					$.ajax({
 
 						type: 'POST',
@@ -443,8 +439,6 @@
 				
 					
 				}
-				// return;
-				// setData(contactTypes).then(data => console.log(data));
 				
 				 
 				setData(contactTypes).then(payLoad => deliverMessage(payLoad));
@@ -474,8 +468,6 @@
 								})
 
 								$this.html(oldHtml)
-
-								console.log(response);
 
 								return;
 							}
