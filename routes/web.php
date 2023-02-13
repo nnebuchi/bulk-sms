@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/terms', function () {
     return view('terms');
-});
+})->name('terms');
 
 
 // Route::get('/verify-email', 'UserController@emailVerification')->name('verify-email');

@@ -481,8 +481,8 @@
                                 <h4>Support</h4>
                                 <ul>
                                     <!-- <li><a href="#">Report a bug</a></li> -->
-                                    <li><a href="Legal-page.html">Privacy Policy</a></li>
-                                    <li><a href="Legal-page.html">Terms & Conditions</a></li>
+                                    <li><a href="{{route('terms')}}#privacy">Privacy Policy</a></li>
+                                    <li><a href="{{route('terms')}}">Terms & Conditions</a></li>
                                     <li><a href="#">Sitemap</a></li>
                                     <li><a href="#">FAQs</a></li>
                                 </ul>
