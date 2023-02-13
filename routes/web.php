@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,8 +19,9 @@ Route::get('/sending-queue-emails', 'TestQueueEmails@send');
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('contact-api', function () {
-    return view('contact-api');
+
+Route::get('/terms', function () {
+    return view('terms');
 });
 
 
