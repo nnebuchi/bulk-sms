@@ -18,9 +18,12 @@ Route::get('/sending-queue-emails', 'TestQueueEmails@send');
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('contact-api', function () {
-    return view('contact-api');
+Route::get('/terms', function () {
+    return view('terms');
 });
+// Route::get('contact-api', function () {
+//     return view('contact-api');
+// });
 
 
 // Route::get('/verify-email', 'UserController@emailVerification')->name('verify-email');
@@ -77,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/rename-column', 'ContactController@renamePhoneColumn')->name('rename-contact-column');
             Route::post('/rename-name-column', 'ContactController@renameNameColumn')->name('rename-name-column');
             Route::get('/skip-name-column/{slug}', 'ContactController@skipNameColumn')->name('skip-name-column');
+            Route::post('/update-file', 'ContactController@updateFile')->name('update-contact-file');
 
 
         });
