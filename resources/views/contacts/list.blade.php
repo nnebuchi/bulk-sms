@@ -3,6 +3,8 @@
 @section('actionLink', route('create-contact'))
 @section('actionText', 'New Contact')
 @section('actionIcon', `<i class="fa fa-pencil"></i>`)
+@section('deleteModal', 'delete-selection-modal')
+@section('batchDeleteRoute', route('delete-multiple-contact'))
 @section('content')
 
 <div class="main-container">
@@ -19,7 +21,8 @@
 							<thead>
 
 								<tr>
-									<th><div class="dt-checkbox">
+									<th>
+										<div class="dt-checkbox">
 											<input type="checkbox" name="select_all" value="1" id="example-select-all">
 											<span class="dt-checkbox-label"></span>
 										</div>
@@ -36,8 +39,8 @@
 								@php $count = 0; @endphp
 								@foreach($contacts as $contact)
 								@php $count ++ @endphp
-								<tr>
-									<td></td>
+								<tr slug="{{$contact->slug}}">
+									<td class="single-check"></td>
 									<td>{{ $count }}</td>
 									<td>{{ $contact->title }}</td>
 									<td>{{number_format(count(explode(',', $contact->numbers)))  }}</td>
@@ -65,9 +68,6 @@
 											          <span aria-hidden="true">&times;</span>
 											        </button>
 										      	</div>
-										        
-
-										        
 										      </div>
 										      <hr>
 										      <div class="modal-bod text-center">
@@ -91,5 +91,29 @@
 					</div>
 				</div>
 
-				
+				<!--Delete Selection Modal -->
+				<div class="modal fade" id="delete-selection-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+					  <div class="modal-content">
+						  <form action="{{ route('delete-multiple-contact') }}" method="post">
+							  
+							<div class="modal-header">
+								{{-- <h5 class="modal-title" id="exampleModalLongTitle" style="text-align: center!important;">Delete Selected contacts</h5> --}}
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body" style="text-align: center!important;">
+								<p><strong>	Are you sure you want to delete the seleted contacts ? </strong></p>
+								<p class="text-danger">This action cannot be reversed</p>
+							</div>
+							<div class="modal-footer" style="text-align: center!important;">
+								<button type="button" class="btn btn-secondary ml-auto" data-dismiss="modal">No</button>
+								<button type="button" class="btn btn-primary mr-auto" id="batch-delete">Yes</button>
+							</div>
+						</form>
+					  </div>
+					</div>
+				</div>
+
 @endsection

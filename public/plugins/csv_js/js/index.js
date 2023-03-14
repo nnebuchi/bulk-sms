@@ -301,6 +301,7 @@ function saveFile(table){
         data:{
             filename: file_name,
             content: params[1],
+            slug: slug,
             _token: universal_token
         },
         success: function(response){
@@ -347,7 +348,7 @@ function download(filename, text) {
  * a set of tables from it.
  */
 function populate(fileContent, contact_title){
-   
+    
     var ui = getUserInput();
     addTableUnit(
         getTable(

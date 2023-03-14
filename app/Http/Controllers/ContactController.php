@@ -27,6 +27,7 @@ class ContactController extends Controller
     }
 
     function save(Request $request){
+        
         $request->validate([
             'title'=>'required',
             'numbers'=>'required'
@@ -61,6 +62,7 @@ class ContactController extends Controller
     }
 
     function detail(Request $request){
+
          $data['contact'] = $contact = Contact::where(['slug'=>$request->slug, 'user_id'=>Auth::user()->id])->first();
         //  dd($contact);
          if (empty($contact->file)) {
@@ -72,42 +74,14 @@ class ContactController extends Controller
          }else{
 
             $data['filePath'] = $filePath = str_replace('\\', '/', asset('storage/contacts/'.$contact->file)) ;
-            // dd($filePath);
+            $data['slug'] = $request->slug;
             $data['request'] = $request;
+
             return view('contacts.edit')->with($data);
-
-
-            /*// Reading file
-            $file = fopen($filePath, "r");
-            $importData_arr = array(); // Read through the file and store the contents as an array
-            $i = 0;
-
-
-            //Read the contents of the uploaded file 
-            while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE) {
-                $num = count($filedata);
-                // Skip first row (Remove below comment if you want to skip the first row)
-                // if ($i == 0) {
-                // $i++;
-                // continue;
-                // }
-                for ($c = 0; $c < $num; $c++) {
-                $importData_arr[$i][] = $filedata[$c];
-                }
-                $i++;
-            }
-            fclose($file); //Close after reading
-           
-
-            $headRow = $data['headRow'] = $importData_arr[0];
-            unset($importData_arr[0]);
-            $bodyRow = $data['bodyRow'] = $importData_arr;
-
-            Session(['headRow'=>$headRow, 'body'=>$bodyRow]);
-            return view('contacts.detail_csv')->with($data);*/
          }
          
     }
+
 
     function editNumber(Request $request){
         $request->validate([
@@ -131,7 +105,6 @@ class ContactController extends Controller
             $contact->numbers = implode(',', $explodeContact);
             if (isset($newName)) {
                 $explodeNames = explode(',', $contact->names);
-                
                 $explodeNames[$key] = $newName;
                 $contact->names = implode(',', $explodeNames);
             }
@@ -242,12 +215,15 @@ class ContactController extends Controller
         $request->validate([
             'contact_slug'=>'required',
         ]);
-        $contact = Contact::where('slug', clean($request->contact_slug))->delete();
-        
-        Session(['msg'=>'Deleted', 'alert'=>'success']);
-        return redirect()->route('contacts');
+        return ContactService::delete($request);
     }
 
+    function batchDelete(Request $request){
+        $request->validate([
+            'contact_slugs'=>'required',
+        ]);
+        return ContactService::batchDelete($request->contact_slugs);
+    }
     function upload(Request $request){
         $data = $request->validate([
             'contact'=>'required|mimes:csv,txt|max:10240',
@@ -411,6 +387,6 @@ class ContactController extends Controller
     }
     
     public function updateFile(Request $request){
-        return ContactService::updateFile(clean($request->filename), $request->content);
+        return ContactService::updateFile(clean($request->filename), $request->content, $request->slug);
     }
 }

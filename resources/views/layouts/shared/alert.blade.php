@@ -1,4 +1,4 @@
-<div class="alert-msg text-center">
+<div class="alert-msg text-center alert-holder">
   @if(!is_null(session('msg')))
   @php
     $message=session('msg');

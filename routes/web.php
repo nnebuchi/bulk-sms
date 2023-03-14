@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/rename', 'ContactController@rename')->name('rename-contact');
             Route::post('/add-numbers', 'ContactController@addNumbers')->name('add-numbers-to-contact');
             Route::post('/delete', 'ContactController@delete')->name('delete-contact');
+            Route::post('/batch-delete', 'ContactController@batchDelete')->name('delete-multiple-contact');
             Route::post('/upload', 'ContactController@upload')->name('upload-contact');
             Route::post('/rename-column', 'ContactController@renamePhoneColumn')->name('rename-contact-column');
             Route::post('/rename-name-column', 'ContactController@renameNameColumn')->name('rename-name-column');

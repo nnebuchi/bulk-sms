@@ -105,7 +105,15 @@ function csvTo2DArray(csv, separator, quotes, maxRows){
         table.push(tableRow);
         rows++;
     });
-    
+    if(!table[0].includes('phone') && !table[0].includes('Phone')){
+        const alert = `<div class="alert alert-warning alert-dismissible fade show" role="alert" id="alert-div">
+        <strong>Alert!</strong> <span id="alert-message">No phone number column detected. Please rename the phone number column to "Phone"</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`
+         document.querySelector('.alert-holder').innerHTML = alert;
+        
+    }
+    console.log(table);
     return table;
 }
 

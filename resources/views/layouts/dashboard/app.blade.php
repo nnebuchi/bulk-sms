@@ -64,6 +64,9 @@
 		@if(isset($filePath))
 			var file_name = "{{$filePath}}";
 		@endif
+		@isset($slug)
+			var slug = "{{$slug}}";
+		@endisset
 		@if(isset($contact))
 			var contact = <?=json_encode($contact)?>;
 		@endif
@@ -216,19 +219,76 @@
 	
 	   // })
 
-	   $(document).ready(function(){
-		  $('.bootstrap-tagsinput').css('width', '100%')
+		$(document).ready(function(){
+			$('.bootstrap-tagsinput').css('width', '100%')
 
-		  $('.bootstrap-tagsinput').find('input').on('input', function() {
-		  	let $this = $(this);
+			$('.bootstrap-tagsinput').find('input').on('input', function() {
+			let $this = $(this);
 			$this.val($this.val().replace(/ /g, "").replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
-		  })
+			})
 
-		  setTimeout(function(){ 
-	    	$('.alert-msg').empty();
-	     }, 10000);
+			setTimeout(function(){ 
+			$('.alert-msg').empty();
+			}, 10000);
 
+			$(".checkbox-datatable").find("[type=checkbox]").each(function(e) {
+				
+				$( this ).on("input", function(){
+					
+					let checked_items_count = $("tbody").find('[type=checkbox]:checked').length;
+					console.log(checked_items_count)
+					if(checked_items_count > 0){
+						$('.delete-selected').show();
+					}else{
+						$('.delete-selected').hide();
+					}
+				});
+			});
+
+
+			$('#batch-delete').on('click', function(){
+				let deleteBtn = document.querySelector('#batch-delete');
+				deleteBtnHTML = deleteBtn.innerHTML;
+				setBtnLoading(deleteBtn)
+				const slug_list = []
+				$("tbody").find('[type=checkbox]:checked').each(function(e) {
+					slug_list.push($(this).closest('tr').attr('slug'));
+				});
+				$.ajax({
+					type:"post",
+					url:"@yield('batchDeleteRoute')",
+					data:{
+						contact_slugs: slug_list,
+						_token:universal_token
+					},
+					success: function(response){
+						setBtnNotLoading(deleteBtn, deleteBtnHTML);
+						if(response?.status === 'success'){
+							showAlert('success', response.message)
+							$("tbody").find('[type=checkbox]').each(function(e) {
+								if(slug_list.includes($(this).closest('tr').attr('slug'))){
+									$(this).closest('tr').remove();
+								}
+							});
+						}else{
+							alert('something went wrong');
+						}
+
+						$('#@yield('deleteModal')').modal('hide');
+						
+					},
+					error:function(par1, par2, par3){
+						setBtnNotLoading(deleteBtn, deleteBtnHTML)
+						showAlert('danger', par3)
+					}
+
+
+				})
+				// console.log(delete_slug_list);
+			})
 		});
+
+
 
 	   
 	</script>
