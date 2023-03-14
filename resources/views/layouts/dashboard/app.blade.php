@@ -133,7 +133,6 @@
 	<!-- Datatable Setting js -->
 	<script src="{{ asset('dashboard/vendors/scripts/datatable-setting.js')}}"></script>
 	
-	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/csv_js/css/index.css')}}">
 	<script src="{{ asset('plugins/csv_js/js/index.js')}}"></script>
 	<script src="{{ asset('plugins/csv_js/js/projectcsv.js')}}"></script>
 	

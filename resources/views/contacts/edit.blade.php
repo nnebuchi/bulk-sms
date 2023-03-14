@@ -2,10 +2,11 @@
 @section('title', 'Create Contact')
 @section('content')
 
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/csv_js/css/index.css')}}">
 <div class="main-container">
 	@include('layouts.shared.alert')
 	
-	<!-- Controls          -->
+	<!-- Controls -->
 	<div class="container">
 		<nav aria-label="breadcrumb" role="navigation">
 			<ol class="breadcrumb">
@@ -19,10 +20,10 @@
 		<div class="tables text-center" id="tables">
 			<div class="table-holder">
 				<div class="row pr-3 py-2 align-content-center">
-					<div class="col-4 offset-4 text-center">
+					<div class="col-md-4 offset-md-4 text-center">
 						<span id="contact-file-title">{{$contact->title}}</span>
 					</div>
-					<div class="col-4 text-right">
+					<div class="col-md-4 text-md-right mt-2 mt-md-0">
 						<button title="Download the editable table." onClick="downloadTable(1)" class="btn btn-sm btn-primary">  <i class="fa fa-download" id="advanced-controls-display"></i></button>
 						<button title="Download the editable table." onClick="saveFile(1)" class="btn btn-sm btn-primary"> Save <i class="fa fa-save ms-auto" id="advanced-controls-display"></i></button>
 					</div>
