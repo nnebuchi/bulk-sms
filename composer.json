@@ -16,7 +16,6 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "maatwebsite/excel": "^3.1",
         "pnlinh/laravel-infobip-sms": "^1.0"
     },
     "require-dev": {

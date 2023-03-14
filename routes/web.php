@@ -19,19 +19,12 @@ Route::get('/sending-queue-emails', 'TestQueueEmails@send');
 Route::get('/', function () {
     return view('welcome');
 });
-<<<<<<< HEAD
-Route::get('/terms', function () {
-    return view('terms');
-});
-// Route::get('contact-api', function () {
-//     return view('contact-api');
-// });
-=======
-
 Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
->>>>>>> 0797902a15f61c739c28f1d8b33e383c5be4fea0
+// Route::get('contact-api', function () {
+//     return view('contact-api');
+// });
 
 
 // Route::get('/verify-email', 'UserController@emailVerification')->name('verify-email');
