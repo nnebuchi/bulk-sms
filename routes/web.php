@@ -19,10 +19,19 @@ Route::get('/sending-queue-emails', 'TestQueueEmails@send');
 Route::get('/', function () {
     return view('welcome');
 });
+<<<<<<< HEAD
+Route::get('/terms', function () {
+    return view('terms');
+});
+// Route::get('contact-api', function () {
+//     return view('contact-api');
+// });
+=======
 
 Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
+>>>>>>> 0797902a15f61c739c28f1d8b33e383c5be4fea0
 
 
 // Route::get('/verify-email', 'UserController@emailVerification')->name('verify-email');
@@ -75,10 +84,12 @@ Route::group(['middleware' => ['auth']], function () {
             Route::post('/rename', 'ContactController@rename')->name('rename-contact');
             Route::post('/add-numbers', 'ContactController@addNumbers')->name('add-numbers-to-contact');
             Route::post('/delete', 'ContactController@delete')->name('delete-contact');
+            Route::post('/batch-delete', 'ContactController@batchDelete')->name('delete-multiple-contact');
             Route::post('/upload', 'ContactController@upload')->name('upload-contact');
             Route::post('/rename-column', 'ContactController@renamePhoneColumn')->name('rename-contact-column');
             Route::post('/rename-name-column', 'ContactController@renameNameColumn')->name('rename-name-column');
             Route::get('/skip-name-column/{slug}', 'ContactController@skipNameColumn')->name('skip-name-column');
+            Route::post('/update-file', 'ContactController@updateFile')->name('update-contact-file');
 
 
         });

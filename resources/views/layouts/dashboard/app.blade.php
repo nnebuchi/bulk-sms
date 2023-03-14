@@ -34,6 +34,9 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('dashboard/src/plugins/sweetalert2/sweetalert2.css')}}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+	<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 	<script src="{{ asset('dashboard/src/scripts/jquery.min.js')}}"></script>
@@ -58,6 +61,15 @@
 		gtag('config', 'UA-119386393-1');
 	</script>
 	<script>
+		@if(isset($filePath))
+			var file_name = "{{$filePath}}";
+		@endif
+		@isset($slug)
+			var slug = "{{$slug}}";
+		@endisset
+		@if(isset($contact))
+			var contact = <?=json_encode($contact)?>;
+		@endif
     	var url = "{{ url('/') }}";
     	var universal_token = "{{ csrf_token() }}"
     </script>
@@ -84,6 +96,7 @@
 
 
 <div class="mobile-menu-overlay"></div>
+
 @yield('content')
 
 @include('layouts.dashboard.footer')
@@ -120,8 +133,12 @@
 	<!-- Datatable Setting js -->
 	<script src="{{ asset('dashboard/vendors/scripts/datatable-setting.js')}}"></script>
 	
-	<!-- add sweet alert js & css in footer -->
+	<link rel="stylesheet" type="text/css" href="{{ asset('plugins/csv_js/css/index.css')}}">
+	<script src="{{ asset('plugins/csv_js/js/index.js')}}"></script>
+	<script src="{{ asset('plugins/csv_js/js/projectcsv.js')}}"></script>
 	
+	<!-- Buchi JS plugin -->
+    <script src="{{asset('plugins/buchi.js')}}"></script>
 
 	<script>
 
@@ -202,19 +219,76 @@
 	
 	   // })
 
-	   $(document).ready(function(){
-		  $('.bootstrap-tagsinput').css('width', '100%')
+		$(document).ready(function(){
+			$('.bootstrap-tagsinput').css('width', '100%')
 
-		  $('.bootstrap-tagsinput').find('input').on('input', function() {
-		  	let $this = $(this);
+			$('.bootstrap-tagsinput').find('input').on('input', function() {
+			let $this = $(this);
 			$this.val($this.val().replace(/ /g, "").replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1'));
-		  })
+			})
 
-		  setTimeout(function(){ 
-	    	$('.alert-msg').empty();
-	     }, 10000);
+			setTimeout(function(){ 
+			$('.alert-msg').empty();
+			}, 10000);
 
+			$(".checkbox-datatable").find("[type=checkbox]").each(function(e) {
+				
+				$( this ).on("input", function(){
+					
+					let checked_items_count = $("tbody").find('[type=checkbox]:checked').length;
+					console.log(checked_items_count)
+					if(checked_items_count > 0){
+						$('.delete-selected').show();
+					}else{
+						$('.delete-selected').hide();
+					}
+				});
+			});
+
+
+			$('#batch-delete').on('click', function(){
+				let deleteBtn = document.querySelector('#batch-delete');
+				deleteBtnHTML = deleteBtn.innerHTML;
+				setBtnLoading(deleteBtn)
+				const slug_list = []
+				$("tbody").find('[type=checkbox]:checked').each(function(e) {
+					slug_list.push($(this).closest('tr').attr('slug'));
+				});
+				$.ajax({
+					type:"post",
+					url:"@yield('batchDeleteRoute')",
+					data:{
+						contact_slugs: slug_list,
+						_token:universal_token
+					},
+					success: function(response){
+						setBtnNotLoading(deleteBtn, deleteBtnHTML);
+						if(response?.status === 'success'){
+							showAlert('success', response.message)
+							$("tbody").find('[type=checkbox]').each(function(e) {
+								if(slug_list.includes($(this).closest('tr').attr('slug'))){
+									$(this).closest('tr').remove();
+								}
+							});
+						}else{
+							alert('something went wrong');
+						}
+
+						$('#@yield('deleteModal')').modal('hide');
+						
+					},
+					error:function(par1, par2, par3){
+						setBtnNotLoading(deleteBtn, deleteBtnHTML)
+						showAlert('danger', par3)
+					}
+
+
+				})
+				// console.log(delete_slug_list);
+			})
 		});
+
+
 
 	   
 	</script>
