@@ -15,11 +15,12 @@
                                 
                                 <div style="box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 18%) !important; border-radius: 10px;">
                                     <!-- Personal Information -->
-                                    <div class="info-widget" style="background-color: #71a4c6; border-top-right-radius: 10px; border-top-left-radius: 10px;">
+                                    <div class="info-widget" style="background-color: #1d2840; border-top-right-radius: 10px; border-top-left-radius: 10px;">
                                         
                                         <div class="row">
                                             <div class="col-12 text-center">
                                                 <h2 class="mt-3" style="color: white;">Buy Credit</h2>
+                                                <p class="text-white">You can buy unit by entering the number of units you want to purchase or buy entering the amount of funds you want to spend</p>
                                             </div>
                                         </div>
                                     </div>

@@ -35,7 +35,8 @@
                                     <!-- Slider btn -->
                                    <div class="slider-btns">
                                         <!-- Hero-btn -->
-                                        <a data-animation="fadeInLeft" data-delay="1.0s" href="{{route('register')}}" class="btn radius-btn">Get started</a>
+                                        <a data-animation="fadeInLeft" data-delay="1.0s" href="{{route('compose-sms')}}" class="btn radius-btn mb-2 mb-mlg-0">Send SMS</a>
+                                        <a data-animation="fadeInLeft" data-delay="1.0s" href="{{route('buy-unit')}}" class="btn radius-btn sk-btn-primary-outline">Buy Unit</a>
                                         <!-- Video Btn -->
                                         
                                    </div>

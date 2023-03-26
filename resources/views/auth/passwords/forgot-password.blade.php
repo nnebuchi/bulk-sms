@@ -39,10 +39,8 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="input-group mb-0">
-                                        <button class="btn auth-btn btn-lg btn-block">Resend</button>
+                                        <button class="btn auth-btn btn-lg btn-block">Send Password Reset Link</button>
                                     </div>
-                                    
-                                    
                                 </div>
                             </div>
                         </form>

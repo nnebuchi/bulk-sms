@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/sending-queue-emails', 'TestQueueEmails@send');
 
 Route::get('/', function () {
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
     return view('welcome');
 });
 Route::get('/terms', function () {
