@@ -48,7 +48,10 @@
                 $phone_column = [];
                 
                 foreach($bodyRow as $key=>$row){
-                    array_push($phone_column, $row[$phone_index]);
+                    if(isset($row[$phone_index])){
+                        array_push($phone_column, $row[$phone_index]);
+                    }
+                    
                 }
                 
                 $contact = Contact::where('slug', $slug)->first();
