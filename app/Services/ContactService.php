@@ -54,15 +54,6 @@
                     
                 }
 
-                
-                return Response::json(
-                    [
-                        'status'=>'success', 
-                        'message'=>'Contact file updated',
-                        'data'=>$phone_column[0]
-                    ], 
-                200);
-
                 $contact = Contact::where('slug', $slug)->first();
                 
                 if($contact){
