@@ -48,12 +48,13 @@
                 $phone_column = [];
                 
                 foreach($bodyRow as $key=>$row){
-                    if(isset($row[$phone_index])){
+                    if(isset($row[$phone_index]) && $row[$phone_index] != ""){
                         array_push($phone_column, $row[$phone_index]);
                     }
                     
                 }
 
+                
                 return Response::json(
                     [
                         'status'=>'success', 
