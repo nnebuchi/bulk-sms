@@ -5,6 +5,7 @@
     use Illuminate\Support\Facades\Response;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\File;
 
     class ContactService{
         public static function updateFile($filepath, $content, $slug){
@@ -36,6 +37,7 @@
            
 
             $headRow =$importData_arr[0];
+            // return $headRow;
             
             if(in_array('phone', $headRow) || in_array('Phone', $headRow)){
                 
@@ -49,7 +51,14 @@
                 
                 foreach($bodyRow as $key=>$row){
                     if(isset($row[$phone_index]) && $row[$phone_index] != ""){
-                        array_push($phone_column, $row[$phone_index]);
+                        // check if phone number has with 11 digits and starts with zero
+                        if(strlen($row[$phone_index]) === 11 && $row[$phone_index][0] == 0){
+                            array_push($phone_column, $row[$phone_index]);
+                        }elseif(strlen($row[$phone_index]) === 10){
+                            // add zero to 10 digits number that do not start with zero
+                            array_push($phone_column, "0".$row[$phone_index]);
+                        }
+                        
                     }
                     
                 }
@@ -60,19 +69,38 @@
                     $contact->numbers = implode(',', $phone_column);
                     $contact->save();
                 }
+
+                return Response::json(
+                    [
+                        'status'=>'success', 
+                        'message'=>'Contact file updated',
+                        'data'=>$phone_column
+                    ], 
+                200);
             }
+
             return Response::json(
                 [
-                    'status'=>'success', 
-                    'message'=>'Contact file updated'
+                    'status'=>'fail', 
+                    'message'=>'"Phone" column not found'
                 ], 
-            200);
+            400);
+            
 
         }
         
         public static function delete(Request $request){
             
-            $contact = Contact::where('slug', clean($request->contact_slug))->delete();
+            $contact = Contact::where('slug', clean($request->contact_slug))->first();
+            
+            if($contact){
+                if($contact->file){
+                    
+                    File::delete(public_path('storage/contacts/'.$contact->file));
+                }
+
+                $contact->delete();
+            }
             
             Session(['msg'=>'Deleted', 'alert'=>'success']);
             return redirect()->route('contacts');
