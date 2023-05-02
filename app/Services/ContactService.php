@@ -79,16 +79,14 @@
                         'status'=>'success', 
                         'message'=>'Contact file updated.'.'<br>'.' saved contacts: '.count($phone_column).' Unsaved contacts: '.(count($bodyRow)- count($phone_column)),
                         'data'=>$phone_column
-                    ], 
-                200);
+                    ], 200);
             }
 
             return Response::json(
                 [
-                    'status'=>'fail', 
-                    'message'=>'"Phone" column not found'
-                ], 
-            200);
+                    "status"=>"fail", 
+                    "message"=>"'Phone' column not found"
+                ], 200);
             
 
         }
