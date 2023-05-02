@@ -1,5 +1,5 @@
 @extends('layouts.dashboard.app')
-@section('title', 'Create Contact')
+@section('title', 'Edit Contact')
 @section('content')
 
 <link rel="stylesheet" type="text/css" href="{{ asset('plugins/csv_js/css/index.css')}}">

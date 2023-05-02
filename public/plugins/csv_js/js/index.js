@@ -306,10 +306,9 @@ function saveFile(table){
         },
         success: function(response){
             if(response?.status === 'success'){
-                showAlert('success', 'Contact Saved');
+                showAlert('success', response.message);
             }else{
-                console.log(response);
-                alert('something went wrong');
+                showAlert('danger', response.message);
             }
         },
 

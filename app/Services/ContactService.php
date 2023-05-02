@@ -88,7 +88,7 @@
                     'status'=>'fail', 
                     'message'=>'"Phone" column not found'
                 ], 
-            400);
+            200);
             
 
         }
