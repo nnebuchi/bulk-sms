@@ -52,11 +52,15 @@
                 foreach($bodyRow as $key=>$row){
                     if(isset($row[$phone_index]) && $row[$phone_index] != ""){
                         // check if phone number has with 11 digits and starts with zero
-                        if(strlen($row[$phone_index]) === 11 && $row[$phone_index][0] == 0){
-                            array_push($phone_column, $row[$phone_index]);
-                        }elseif(strlen($row[$phone_index]) === 10){
+                        $trimmedContact = str_replace(" ", "", $row[$phone_index]);
+
+                        $trimmedContact = str_replace("-", "", $trimmedContact);
+
+                        if(strlen($trimmedContact) === 11 && $trimmedContact[0] == 0){
+                            array_push($phone_column, $trimmedContact);
+                        }elseif(strlen($trimmedContact) === 10){
                             // add zero to 10 digits number that do not start with zero
-                            array_push($phone_column, "0".$row[$phone_index]);
+                            array_push($phone_column, "0".$trimmedContact);
                         }
                         
                     }
@@ -73,7 +77,7 @@
                 return Response::json(
                     [
                         'status'=>'success', 
-                        'message'=>'Contact file updated',
+                        'message'=>'Contact file updated.'.'<br>'.' saved contacts: '.count($phone_column).' Unsaved contacts: '.(count($bodyRow)- count($phone_column)),
                         'data'=>$phone_column
                     ], 
                 200);
