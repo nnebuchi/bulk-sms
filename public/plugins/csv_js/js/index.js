@@ -310,11 +310,11 @@ function saveFile(table){
             }else{
                 showAlert('danger', response.message);
             }
-        },
-
-        error: function(par1, par2, err){
-            alert(err);
         }
+
+        // error: function(par1, par2, err){
+        //     alert(err);
+        // }
     });
 }
 
