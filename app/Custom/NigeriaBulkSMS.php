@@ -42,7 +42,7 @@
 			  CURLOPT_FOLLOWLOCATION => true,
 			  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			  CURLOPT_CUSTOMREQUEST => 'POST',
-			  CURLOPT_POSTFIELDS => array('api_token' => $this->apiData->api_token,'from' => 'Super 2 Cookies','to' => $numbers,'body' => $msg, 'gateway' => '0','append_sender' => '0'),
+			  CURLOPT_POSTFIELDS => array('api_token' => $this->apiData->api_token,'from' => 'Ignite Network','to' => $numbers,'body' => $msg, 'gateway' => '0','append_sender' => '0'),
 			  CURLOPT_HTTPHEADER => array(
 			    'Accept: application/json'
 			  ),
