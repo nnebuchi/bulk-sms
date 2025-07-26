@@ -64,10 +64,10 @@
           <ul
             class="flex flex-col mt-4 font-medium md:flex-row md:mt-0 md:space-x-8 rtl:space-x-reverse">
             <li>
-              <a href="#features" class="navlink">Features</a>
+              <a href="{{route('welcome').'#features'}}" class="navlink">Features</a>
             </li>
             <li>
-              <a href="#pricing" class="navlink">Pricing</a>
+              <a href="{{route('welcome').'#pricing'}}" class="navlink">Pricing</a>
             </li>
             <li>
               <a href="#" class="navlink">API Docs</a>
@@ -111,15 +111,15 @@
             <ul class="flex flex-col w-full justify-center">
               <li
                 class="hover:bg-skzyellow-700 w-full border-b border-gray-400 h-16 ps-10 flex items-center">
-                <a href="#features" class="font-medium text-base">Features</a>
+                <a href="{{route('welcome').'#features'}}" class="font-medium text-base mobile-nav-link">Features</a>
               </li>
               <li
                 class="hover:bg-skzyellow-700 w-full border-b border-gray-400 h-16 ps-10 flex items-center">
-                <a href="#pricing" class="font-medium text-base">Pricing</a>
+                <a href="{{route('welcome').'#pricing'}}" class="font-medium text-base mobile-nav-link">Pricing</a>
               </li>
               <li
                 class="hover:bg-skzyellow-700 w-full border-b border-gray-400 h-16 ps-10 flex items-center">
-                <a href="#" class="font-medium text-base">API Docs</a>
+                <a href="#" class="font-medium text-base mobile-nav-link">API Docs</a>
               </li>
 
               <!-- <a
