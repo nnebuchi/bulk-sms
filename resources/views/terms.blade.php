@@ -1,4 +1,4 @@
-@extends('layouts.front')
+@extends('layouts.rebirth')
 @section('title', "Terms and Conditions | Privacy Policy")
 @section('content')
 
@@ -24,7 +24,7 @@
 
                              <h5 class="text-center"><span><i class="fa fa-lock pr-3"></i></span>PRIVACY POLICY</h5>
 
-                             <p>The Company respects the privacy of its Service users. Please refer to the Company’s <a href="#privacy" style="color:#628c23;">Privacy Policy </a> which explains how we collect, use, and disclose information that pertains to your privacy. When you access or use the Service, you signify your agreement to the Privacy Policy as well as these Terms of Use.</p>
+                             <p>The Company respects the privacy of its Service users. Please refer to the Company’s <a href="#privacy" class="text-skzyellow-400 hover:underline font-semibold">Privacy Policy </a> which explains how we collect, use, and disclose information that pertains to your privacy. When you access or use the Service, you signify your agreement to the Privacy Policy as well as these Terms of Use.</p>
 
                              <h5 class="text-center"><span><i class=" fa fa-info-circle pr-3"></i></span>ABOUT THE SERVICE</h5>
 
@@ -86,7 +86,7 @@
                              <p>We do not guarantee the accuracy, completeness, or usefulness of any information on the Site or the Service nor do we adopt nor endorse, nor are we responsible for, the accuracy or reliability of any opinion, advice, or statement made by other parties.</p>
                              <p> We take no responsibility and assume no liability for any User Content that you or any other user or third party posts or sends via the Service. </p>
                              <p>Under no circumstances will we be responsible for any loss or damage resulting from anyone’s reliance on information or other content posted on the Service, or transmitted to users.</p>
-                             <p>Though we strive to enforce these Terms of Use, you may be exposed to User Content that is inaccurate or objectionable when you use or access the Site or the Service. We reserve the right, but have no obligation, to monitor the materials posted in the public areas of the Site or the Service or to limit or deny a user’s access to the Service or take other appropriate action if a user violates these Terms of Use or engages in any activity that violates the rights of any person or entity or which we deem unlawful, offensive, abusive, harmful or malicious.</p> <p>Messages sent between you and the receiver that are not readily accessible to the general public will be treated by us as private to the extent required by applicable law. </p> <p>The Company shall have the right to remove any material that in its sole opinion violates, or is alleged to violate, the law or this agreement or which might be offensive, or that might violate the rights, harm, or threaten the safety of users or others.</p><p>Unauthorized use may result in criminal and/or civil prosecution under Federal, State and local law If you become aware of a misuse of our Service or violation of these Terms of Use, please contact us <a href="#" style="color:#628c23;">support@skezzole.com.</a></p>
+                             <p>Though we strive to enforce these Terms of Use, you may be exposed to User Content that is inaccurate or objectionable when you use or access the Site or the Service. We reserve the right, but have no obligation, to monitor the materials posted in the public areas of the Site or the Service or to limit or deny a user’s access to the Service or take other appropriate action if a user violates these Terms of Use or engages in any activity that violates the rights of any person or entity or which we deem unlawful, offensive, abusive, harmful or malicious.</p> <p>Messages sent between you and the receiver that are not readily accessible to the general public will be treated by us as private to the extent required by applicable law. </p> <p>The Company shall have the right to remove any material that in its sole opinion violates, or is alleged to violate, the law or this agreement or which might be offensive, or that might violate the rights, harm, or threaten the safety of users or others.</p><p>Unauthorized use may result in criminal and/or civil prosecution under Federal, State and local law If you become aware of a misuse of our Service or violation of these Terms of Use, please contact us <a href="#" class="text-skzyellow-400 hover:underline font-semibold">support@skezzole.com.</a></p>
 
                             <h5 class="text-center"><span><i class="fa fa-link pr-3"></i></span> LINKS TO OTHER SITES AND/OR MATERIALS</h5>
 

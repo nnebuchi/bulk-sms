@@ -17,11 +17,13 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/sending-queue-emails', 'TestQueueEmails@send');
 
 Route::get('/', function () {
-    if (Auth::check()) {
-        return redirect()->route('home');
-    }
-    return view('welcome');
-});
+    // if (Auth::check()) {
+    //     return redirect()->route('home');
+    // }
+    // return view('welcome');
+     return view('welcome');
+})->name('welcome');
+
 Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
@@ -51,7 +53,6 @@ Route::group(['middleware' => ['auth']], function () {
     // unverified users route
     Route::post('/resend-verification', 'UserController@resendVerificationMail')->name('resend-verification');
 
-    
     // verified user routes
     Route::group(['middleware'=>['verified']], function () {
         Route::get('/home', 'HomeController@index')->name('home');

@@ -363,11 +363,7 @@ class SmsController extends Controller
     }
 
     public function scheduled(){
-        $messages = $data['messages'] = Message::where('user_id', Auth::user()->id)->where('status', '>=', '4')->where('status', '<=', '5')->with('schedule')->latest()->get();
-       // foreach ($messages as $key => $message) {
-       //    dd($message->schedule()->first()->contact);
-       // }
-
+        $data['messages'] = Message::where('user_id', Auth::user()->id)->where('status', '>=', '4')->where('status', '<=', '5')->with('schedule')->latest()->get();
         return view('sms.scheduled')->with($data);
     }
 
@@ -383,4 +379,6 @@ class SmsController extends Controller
             return json_encode(['status'=>'success', 'msg'=>'Schedule Cancelled', 'alert'=>'success']);
         }
     }
+
+    
 }

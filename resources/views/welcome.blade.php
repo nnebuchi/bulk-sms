@@ -1,374 +1,759 @@
-@extends('layouts.front')
+@extends('layouts.rebirth')
 @section('title', env('APP_NAME'))
 @section('content')
    
     <main>
-
-        <style>
-            .hero__caption h2{
-                font-size: 25px;
-                margin-top: -10px;
-            }
-            @media(max-width: 1000px) {
-                .hero__caption h2{
-                    display: none;
-                }
-            }
-
-            @media(min-width: 1200px){
-                .what-to-find-title{
-                    margin-top: -100px!important
-                }
-            }
-        </style>
-        <!-- Slider Area Start-->
-        <div class="slider-area">
-            <div class="slider-active">
-                <div class="single-slider slider-height slider-padding sky-blue d-flex align-items-center slider-1">
-                    <div class="container">
-                        <div class="row d-flex align-items-center">
-                            <div class="col-sm-6 hero-row">
-                                <div class="hero__caption">
-                                   <h1 class="hero-title">Simple And <br> Affordable Bulk SMS  <br> For Marketing</h1>
-                                    <h2 data-animation="fadeInUp" data-delay=".6s">Send Bulk SMS In 6 Simple Steps</h2>
-                                    
-                                    <!-- Slider btn -->
-                                   <div class="slider-btns">
-                                        <!-- Hero-btn -->
-                                        <a data-animation="fadeInLeft" data-delay="1.0s" href="{{route('compose-sms')}}" class="btn radius-btn mb-2 mb-mlg-0">Send SMS</a>
-                                        <a data-animation="fadeInLeft" data-delay="1.0s" href="{{route('buy-unit')}}" class="btn radius-btn sk-btn-primary-outline">Buy Unit</a>
-                                        <!-- Video Btn -->
-                                        
-                                   </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 pr-md-5">
-                                <div class="hero__img d-none d-sm-block f-right pr-md-5" id="hero-right" data-animation="fadeInRight" data-delay="1s">
-                                    <img src="{{ asset('assets/img/hero/hero_right.png')}}" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-                
-            </div>
+        <section
+        class="bg-skzgrey-100 tabletmd:min-h-screen min-h-[500px] pt-24 relative isolate flex flex-col justify-between">
+        <img src="{{asset('rebirth/assets/images/hero-circle.png')}}" class="absolute left-0 tabletsm:bottom-0 bottom-0 z-0 isolate" alt="" />
+        <div
+          class="max-w-screen-xl tabletlg:px-12 mobilemd:px-8 px-4 py-8 mx-auto flex tabletsm:justify-between justify-center items-start tabletsm:flex-nowrap gap-y-8 flex-wrap relative z-10">
+          <div data-aos="fade-up" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" class="laptopmd:w-5/12 tabletsm:w-6/12 mobilelg:w-10/12 w-full flex-col flex tabletsm:items-start items-center">
+            <h1 class="hero-heading">
+              Send Bulk SMS to Thousands of Customers Instantly
+            </h1>
+            <p class="max-w-2xl mb-6 body text-center tabletsm:text-start">
+              Reach your audience with reliable delivery, AI-powered messaging,
+              and simple API integration.
+            </p>
+            <a href="{{route('compose-sms')}}" class="inline-flex btn-secondary w-6/12" role="button">
+              Get started
+              <svg
+                class="w-5 h-5 ml-2 -mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+          <div class="tabletsm:w-5/12 mobilelg:w-10/12 w-full" data-aos="zoom-in" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+            <img
+              src="{{asset('rebirth/assets/images/hero-img.png')}}"
+              alt="hero-image"
+              class="hover:scale-90 transition-all duration-500 ease-in-out" />
+          </div>
         </div>
-        <!-- Slider Area End -->
-        <!-- Best Features Start -->
-        <section class="best-features-area section-padd4" id="features">
-            <div class="container">
-                <div class="row justify-content-end" >
-                    <div class="col-xl-8 col-lg-10">
-                        <!-- Section Tittle -->
-                        <div class="row" >
-                            <div class="col-lg-10 col-md-10">
-                                <div class="section-tittle">
-                                    <h2 class="text-center what-to-find-title">What to find here!</h2>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Section caption -->
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="single-features mb-70">
-                                    <div class="features-icon">
-                                        <span><i class="fa fa-calendar-plus"></i></span>
-                                    </div>
-                                    <div class="features-caption">
-                                        <h3>SMS scheduling</h3>
-                                        <p>Skezzole offers you a stress-free feature that enables you to compose and send your bulk SMS automatically at your specified time. </p>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="single-features mb-70">
-                                    <div class="features-icon">
-                                        <span><i class="fa fa-history"></i></span>
-                                    </div>
-                                    <div class="features-caption">
-                                        <h3>Detailed SMS History</h3>
-                                        <p>As a part of our transparency policy, Skezzole provides you with a comprehensive archive of SMS sent and units purchased over a period of time.</p>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="single-features mb-70">
-                                    <div class="features-icon">
-                                        <span><i class="fa fa-user-plus"></i></span>
-                                    </div>
-                                    <div class="features-caption">
-                                        <h3>Flexible Contact Input</h3>
-                                        <p>Skezzole has a built-in feature that enables you to either save or group a contact afore hand. Just click on them as existing contacts or alternatively, upload a CSV file containing your contacts.</p>
-                                    </div>
-                                </div>
-                            </div>
-                             <div class="col-xl-6 col-lg-6 col-md-6">
-                                <div class="single-features mb-70">
-                                    <div class="features-icon">
-                                        <span><i class="fa fa-calculator"></i></span>
-                                    </div>
-                                    <div class="features-caption">
-                                        <h3>Unit-Price Calculator</h3>
-                                        <p>Our two-way unit-price calculator gives you the ease of computing a desirables number of units and having the corresponding cost in NGN automatically calculated and displayed.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Shpe -->
-            <div class="features-shpae d-none d-lg-block" style="padding-top: 150px!important">
-                
-                <img src="{{ asset('assets/img/hero/slide_1.png')}}" alt="" height="400" class="rounded-circle" style="object-fit: cover;">
-            </div>
-        </section>
-        <!-- Best Features End -->
-        <!-- Services Area Start -->
-        <section class="service-area sky-blue">
-            <div class="container">
-                <!-- Section Tittle -->
-                <div class="row d-flex justify-content-center">
-                    <div class="col-lg-6">
-                        <div class="section-tittle text-center">
-                            <h2>Upcoming Features!</h2>
-                        </div>
-                    </div>
-                </div>
-                <!-- Section caption -->
-                <div class="row d-flex justify-content-center">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption text-center mb-30">
-                            <div class="service-icon">
-                                <span><i class="fa fa-link"></i></span>
-                            </div> 
-                            <div class="service-cap">
-                                <h4><a href="#">SMS API</a></h4>
-                                <p>Easily integrate our SMS API into your application.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption active text-center mb-30">
-                            <div class="service-icon">
-                                <span> <i class="fa fa-user"></i></span>
-                            </div> 
-                            <div class="service-cap">
-                                <h4><a href="#">SMS Personalization</a></h4>
-                                <p>Uniquely address your recipients by their names.</p>
-                            </div>
-                        </div>
-                    </div> 
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <div class="services-caption text-center mb-30">
-                            <div class="service-icon">
-                                 <span> <i class="fa fa-file"></i></span>
-                            </div> 
-                            <div class="service-cap">
-                                <h4><a href="#">SMS Template</a></h4>
-                                <p>Varieties of customisable sms templates for you.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- UNIT PRICE CALCULATOR-->
-        <div class="row py-5" style="background-image: url({{ asset('assets/img/gallery/best_pricingbg.jpg')}}); min-height: 450px; position: relative;">
-            <div class="pricing-overlay" style="position:absolute; height: 100%; top: 0; left: 0; right:0; bottom: 0; background-color: #375c8c; z-index: 2; opacity: 0.9;" id="pricing"></div>
-            <div class="container" style="height: 100%; z-index:3;">
-                <div id="unit_price_calc" class="wrapper">
-                   <div class="one"><p>unit-price converter</p></div>
-                   <div class="two">
-                       <label><p><i class="fa fa-balance-scale"></i> unit</p></label>
-                       <input type="number" min="0" placeholder="Number of unit" id="unit-input">
-                   </div>
-                   <div class="three">
-                       <div id="arrows">
-                           <div class="arrow-right"><i class="fa fa-arrow-right" ></i> </div>
-                            <div class="arrow-left"><i class="fa fa-arrow-left" ></i></div>
-                       </div>
-                   </div>
-                   <div class="four">
-                    <label><p><i>&#8358</i> Price</p></label>
-                     <input type="number" min="0" placeholder="Price of unit" id="cost-input">
-                   </div>
-                   <div class="five"> 
-                       <p>units are availiable for your pocket size.</p>
-                    </div>
-                </div>
-            </div>
+        <div
+          class="h-28 w-full flex justify-evenly bg-skzyellow-700 items-center relative z-10">
+          <div class="flex flex-col items-center">
+            <h5
+              class="font-semibold mobilelg:text-4xl/snug mobilemd:text-3xl/snug text-2xl">
+              50,000
+            </h5>
+            <span class="mobilemd:text-base text-sm font-medium"
+              >Messages sent Monthly</span
+            >
+          </div>
+          <div class="flex flex-col items-center">
+            <h5
+              class="font-semibold mobilelg:text-4xl/snug mobilemd:text-3xl/snug text-2xl">
+              100+
+            </h5>
+            <span class="mobilemd:text-base text-sm font-medium"
+              >Businesses trust us</span
+            >
+          </div>
+          <div class="flex flex-col items-center">
+            <h5
+              class="font-semibold mobilelg:text-4xl/snug mobilemd:text-3xl/snug text-2xl">
+              99.9%
+            </h5>
+            <span class="mobilemd:text-base text-sm font-medium">Uptime</span>
+          </div>
         </div>
-        <div class="our-customer section-padd-top30">
-            <div class="container-fluid">
-            <div class="our-customer-wrapper">
-                    <!-- Section Tittle -->
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-xl-8">
-                            <div class="section-tittle text-center">
-                                <h2>See what our customers <br> are saying about us </h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="customar-active dot-style d-flex dot-style">
-                                <div class="single-customer mb-100">
-                                    <div class="what-img">
-                                        <img src="{{ asset('assets/img/shape/man1.png')}}" alt="">
-                                    </div>
-                                    <div class="what-cap">
-                                        <h4><a href="#">Skezzole has been an awesome</a></h4>
-                                        <p>Messaging my team has been so easy and efficient</p>
-                                    </div>
-                                </div>
-                            
-                                <div class="single-customer mb-100">
-                                    <div class="what-img">
-                                        <img src="{{ asset('assets/img/shape/man2.png')}}" alt="">
-                                    </div>
-                                    <div class="what-cap">
-                                        <h4><a href="#">Great user experience</a></h4>
-                                        <p>The user experience is quite simple and easy. No complexity; just smooth.</p>
-                                    </div>
-                                </div>
-                            
-                                <div class="single-customer mb-100">
-                                    <div class="what-img">
-                                        <img src="{{ asset('assets/img/shape/man3.png')}}" alt="">
-                                    </div>
-                                    <div class="what-cap">
-                                        <h4><a href="#">Prompt customer support</a></h4>
-                                        <p>The livechat and email outlet responds almost immediately.</p>
-                                    </div>
-                                </div>
-                            
-                                <div class="single-customer mb-100">
-                                    <div class="what-img">
-                                        <img src="{{ asset('assets/img/shape/man2.png')}}" alt="">
-                                    </div>
-                                    <div class="what-cap">
-                                        <h4><a href="#">Cheap and affordable</a></h4>
-                                        <p>The pricing is quite good for small organisations.</p>
-                                    </div>
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </div>
+      </section>
+      <section class="bg-white">
+        <div
+          class="max-w-screen-xl tabletlg:px-12 mobilemd:px-8 px-4 tabletsm:py-20 py-12 mx-auto flex flex-col items-center space-y-8">
+          <div class="text-center flex flex-col items-center w-full" data-aos="fade-up" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+            <h2 class="heading-1">What our Clients say about us</h2>
+            <p class="body tabletsm:w-7/12 mobilelg:w-10/12 w-full">
+              Our mission is to drive progress and enhance the lives of our
+              customers by delivering superior products and services that exceed
+              expectations.
+            </p>
+          </div>
+          <div
+            class="flex tabletsm:flex-row flex-col-reverse tabletsm:justify-between justify-center tabletsm:flex-nowrap flex-wrap items-center w-full gap-y-8">
+            <div
+              class="laptopmd:w-5/12 tabletmd:w-6/12 tabletsm:w-7/12 w-full space-y-2 flex flex-col tabletsm:items-start items-center" data-aos="fade-up" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div
+                class="space-x-2 flex justify-start tabletsm:items-center items-start w-full">
+                <img
+                  src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                  class=""
+                  alt="features-icon" />
+                <p class="body-sm">
+                  99.9% delivery rate across all Nigerian networks
+                </p>
+              </div>
+              <div class="space-x-2 flex justify-start items-center w-full">
+                <img
+                  src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                  class=""
+                  alt="features-icon" />
+                <p class="body-sm">
+                  AI-powered SMS composition and optimization
+                </p>
+              </div>
+              <div class="space-x-2 flex justify-start items-center w-full">
+                <img
+                  src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                  class=""
+                  alt="features-icon" />
+                <p class="body-sm">
+                  Developer-friendly API with comprehensive documentation
+                </p>
+              </div>
+              <div class="space-x-2 flex justify-start items-center w-full">
+                <img
+                  src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                  class=""
+                  alt="features-icon" />
+                <p class="body-sm">Transparent pricing with no hidden fees</p>
+              </div>
+              <div class="flex space-x-4 items-center mt-8">
+                <a href="{{route('compose-sms')}}" role="button" class="btn-primary">Start Sending SMS</a>
+                <a href="#pricing" role="button" class="btn-ghost">View Pricing</a>
+              </div>
             </div>
-            </div>
-        </div>           
-        <!-- Our Customer End -->
+            <div class="laptopmd:w-7/12 tabletsm:w-5/12 w-full flex justify-between gap-4" data-aos="fade-up" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="swiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="laptopdmd:w-1/2 w-full">
+                      <div
+                        class="w-full mb-8 border border-gray-200 rounded-lg min-h-80 md:mb-12 bg-skzdark-100 shadow-md">
+                        <figure
+                          class="flex flex-col items-center justify-center p-8 text-center rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e">
+                          <img src="{{asset('rebirth/assets/icons/quote.svg')}}" alt="" />
+                          <blockquote
+                            class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
+                            <h3 class="text-lg font-semibold text-white">
+                              Super easy to use.
+                            </h3>
+                            <p class="my-4">
+                              Skezzole made it super easy for us to reach all our customers at once. The scheduling feature is a lifesaver"
+                            </p>
+                          </blockquote>
+                          <figcaption
+                            class="flex items-center justify-center flex-col">
+                            <img
+                              class="rounded-full w-12 h-12"
+                              src="{{asset('rebirth/assets/images/cynthia-okeke.png')}}"
+                              alt="profile picture" />
 
-
-        <!-- contact us start-->
-        <div class="available-app-area" id="contact-us" >
-            <div class="container">
-                <h1 class="text-center">Talk to us here</h1>
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        
-                        <!-- contact us form  -->
-                        <div class="contact-us" >
-                            <div class="section-title" >
-                                
-                                <form method="post" id="contact-form">
-                                    @csrf
-                                    <label for="email" class="form-label">Email address:</label>
-                                        <div class="mb-4 input-group">
-                                            <span class="input-group-text">
-                                                <i class="fa fa-envelope"></i>
-                                            </span>
-                                            <input type="email" class="form-control" name="email" id="email" placeholder="eg.mario@example.com">
-                                            <!-- tooltip -->
-                                            <span class="input-group-text">
-                                                <span class="tt" name="title" data-bs-placement="bottom" title="enter an email adress we can reply to.">
-                                                    <i class="fa fa-info-circle "></i>
-                                                </span>
-                                                
-                                            </span>
-            
-                                        </div>
-                                    <label for="name" class="form-label">Name:</label>
-                                    <div class="input-group mb-4">
-                                        <span class="input-group-text">
-                                            <i class="fa fa-user"></i>
-                                        </span>
-                                        <input type="text" class="form-control" name="name" id="name" placeholder="eg.Mario"s>
-                                        <!-- tooltip -->
-                                        <span class="input-group-text">
-                                            <span class="tt" data-bs-placement="bottom" title="we prefer you username">
-                                                <i class="fa fa-info-circle "></i>
-                                            </span>
-                                            
-                                        </span>
-                                    </div>
-                                    
-            
-                                    <label for="query"> what do you want to tell us....</label>
-                                    <div class="form-floating mb-3">
-                                        <textarea class="form-control" name="message" id="query" rows="5" placeholder="share your thoughts with us here..."></textarea>
-                                       
-                                    </div>
-            
-                                    <!-- <div class="mb-4 text-center">
-                                        <button type="submit" class=" btn btn-secondary">submit</button>
-                                    </div> -->
-                                    <span class="contact-btn">
-                                        <button class="btn" type="button" id="contact-form-btn" style="border-radius: 50px; padding: 15px; width: 100%; font-size: 25px"><i class="fa fa-paper-plane pr-2"></i>Send</button>
-                                    </span>
-                                </form>
-                                
+                            <div class="text-sm mt-4 font-medium text-white">
+                              Digital Marketer  at <a href="https://zamella.net" target="_blank" rel="Easycoop">Zamella</a>
                             </div>
-                        </div>
+                          </figcaption>
+                        </figure>
+                      </div>
                     </div>
-                    <div class="col-xl-6 col-lg-6 col-md-10 col-sm-12 col-xs-12">
-                        <div class="app-img">
-                            <img src="{{ asset('assets/img/shape/available-app.png')}}" alt="">
-                        </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="laptopdmd:w-1/2 w-full">
+                      <div
+                        class="w-full mb-8 border border-gray-200 rounded-lg min-h-80 md:mb-12 bg-skzdark-100 shadow-md">
+                        <figure
+                          class="flex flex-col items-center justify-center p-8 text-center rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e">
+                          <img src="{{asset('rebirth/assets/icons/quote.svg')}}" alt="" />
+                          <blockquote
+                            class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
+                            <h3 class="text-lg font-semibold text-white">
+                              Very easy this was to integrate
+                            </h3>
+                            <p class="my-4">
+                              Their API is straightforward and reliable — we integrated it into our Fintech Solution."
+                            </p>
+                          </blockquote>
+                          <figcaption
+                            class="flex items-center justify-center flex-col">
+                            <img
+                              class="rounded-full w-12 h-12"
+                              src="{{asset('rebirth/assets/images/emmanuel-ebere.png')}}"
+                              alt="profile picture" />
+
+                            <div class="text-sm mt-4 font-medium text-white">
+                              Developer at <a href="https://easycoopng.com" target="_blank" rel="Easycoop">Easycoop</a>
+                            </div>
+                          </figcaption>
+                        </figure>
+                      </div>
                     </div>
+                  </div>
+                  <div class="swiper-slide">
+                    <div class="laptopdmd:w-1/2 w-full">
+                      <div
+                        class="w-full mb-8 border border-gray-200 rounded-lg min-h-80 md:mb-12 bg-skzdark-100 shadow-md">
+                        <figure
+                          class="flex flex-col items-center justify-center p-8 text-center rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e">
+                          <img src="{{asset('rebirth/assets/icons/quote.svg')}}" alt="" />
+                          <blockquote
+                            class="max-w-2xl mx-auto mb-4 text-white lg:mb-8">
+                            <h3 class="text-lg font-semibold text-white">
+                              Awesome AI feature
+                            </h3>
+                            <p class="my-4">
+                              I love the AI feature! I just type in what I need and it composes a beautiful message for my clients"
+                            </p>
+                          </blockquote>
+                          <figcaption
+                            class="flex items-center justify-center flex-col">
+                            <img
+                              class="rounded-full w-12 h-12"
+                              src="{{asset('rebirth/assets/images/tolu-ojo.png')}}"
+                              alt="profile picture" />
+
+                            <div class="text-sm mt-4 font-medium text-white">
+                              Event Planner at <a href="https://easycoopng.com" target="_blank" rel="Easycoop">Easycoop</a>
+                            </div>
+                          </figcaption>
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
+                <!-- <div class="swiper-pagination"></div> -->
 
-            <!-- Slets ta -->
-            <div class="app-shape">
-                <img src="{{ asset('assets/img/shape/app-shape-top.png')}}" alt="" class="app-shape-top heartbeat d-none d-lg-block">
-                <img src="{{ asset('assets/img/shape/app-shape-left.png')}}" alt="" class="app-shape-left d-none d-xl-block">
-                <!-- <img src="{{ asset('assets/img/shape/app-shape-right.png')}}" alt="" class="app-shape-right bounce-animate "> -->
+                <!-- If we need navigation buttons -->
+                <!-- <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div> -->
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+      <section class="">
+        <div class="max-w-screen-xl tabletlg:px-12 mobilemd:px-8 px-4 tabletsm:py-16 py-12 mx-auto flex flex-col items-center space-y-8 min-h-[400px]" data-aos="fade-up" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+          <div class="text-center flex flex-col items-center w-full">
+            <h2 class="heading-1">Get Started in 3 Simple Steps</h2>
+            <p class="body tabletsm:w-7/12 mobilelg:w-10/12 w-full">
+              Our mission is to drive progress and enhance the lives of our
+              customers by delivering superior products and services that exceed
+              expectations.
+            </p>
+          </div>
+          <div
+            class="w-full tabletsm:inline-block flex flex-row-reverse justify-end relative">
+            <img
+              src="{{asset('rebirth/assets/images/steps.svg')}}"
+              alt=""
+              class="xl:w-fit tabletsm:w-9/12 tabletsm:flex hidden tabletsm:rotate-0 mx-auto h-fit" />
+            <img
+              src="{{asset('rebirth/assets/images/steps.svg')}}"
+              alt=""
+              class="tabletsm:hidden flex absolute rotate-90 top-5/12 mobilelg:left-60 left-45 mobilemd:w-9/12 w-10/12" />
+            <div
+              class="flex justify-between items-center tabletsm:w-full laptopmd:space-x-0 space-x-4 tabletsm:flex-nowrap flex-wrap mobilemd:w-9/12 w-11/12 mobilelg:gap-y-8 gap-y-6">
+              <div
+                class="laptopmd:w-3/12 tabletsm:w-4/12 w-full tabletlg:min-h-48 mobilelg:mb-2 mb-0">
+                <h4 class="text-lg/relaxed font-semibold mb-2">
+                  Sign Up & Fund Account
+                </h4>
+                <p class="body-1">
+                  Create your account in minutes. Add SMS units to your balance
+                  using bank transfer, card payment, or mobile money.
+                </p>
+              </div>
+              <div
+                class="laptopmd:w-3/12 tabletsm:w-4/12 w-full tabletlg:min-h-48 mobilelg:mb-2 mb-0">
+                <h4 class="text-lg/relaxed font-semibold mb-2">
+                  Import Contacts
+                </h4>
+                <p class="body-1">
+                  Upload your contact list from CSV/Excel or add contacts
+                  manually. Organize them into groups for targeted messaging.
+                </p>
+              </div>
+              <div
+                class="laptopmd:w-3/12 tabletsm:w-4/12 w-full tabletlg:min-h-48 mobilelg:mb-2 mb-0">
+                <h4 class="text-lg/relaxed font-semibold mb-2">Send SMS</h4>
+                <p class="body-1">
+                  Compose your message (or let AI help), select recipients, and
+                  send instantly or schedule for later delivery.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="bg-white" id="features">
+        <div
+          class="max-w-screen-xl px-4 tabletsm:pt-20 pt-12 mx-auto flex flex-col items-center space-y-8">
+          <div class="text-center flex flex-col items-center w-full" data-aos="fade-up" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+            <h2
+              class="heading-1 tabletlg:w-full tabletsm:w-9/12 mobilemd:w-9/12 w-full">
+              Everything You Need to Scale Your SMS Marketing
+            </h2>
+            <p class="body tabletsm:w-7/12 mobilelg:w-10/12 w-full">
+              Our mission is to drive progress and enhance the lives of our
+              customers by delivering superior products and services that exceed
+              expectations.
+            </p>
+          </div>
+          <div class="justify-center items-center w-full gap-4 flex-wrap tabletsm:flex hidden">
+            <div class="skz-card" data-aos="zoom-in" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="w-10 mb-2">
+                <img src="{{asset('rebirth/assets/icons/send.svg')}}" alt="" class="w-full" />
+              </div>
+              <h4 class="text-lg/relaxed font-semibold mb-2">
+                Send to Thousands Instantly
+              </h4>
+              <p class="body-sm">
+                Reach your entire customer base with a single click. Upload
+                contacts, compose your message, and send to thousands
+                simultaneously.
+              </p>
+            </div>
+            <div class="skz-card" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="w-10 mb-2">
+                <img src="{{asset('rebirth/assets/icons/API.svg')}}" alt="" class="w-full" />
+              </div>
+              <h4 class="text-lg/relaxed font-semibold mb-2">
+                AI-Powered SMS Creation
+              </h4>
+              <p class="body-sm">
+                Let our AI assistant help you craft compelling messages. Just
+                describe what you want to say, and get professional SMS content
+                instantly.
+              </p>
+            </div>
+            <div class="skz-card" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="w-10 mb-2">
+                <img src="{{asset('rebirth/assets/icons/smart.svg')}}" alt="" class="w-full" />
+              </div>
+              <h4 class="text-lg/relaxed font-semibold mb-2">
+                Powerful API Integration
+              </h4>
+              <p class="body-sm">
+                Integrate SMS functionality into your applications with our
+                RESTful API. Complete documentation and code examples included.
+              </p>
+            </div>
+            <div class="skz-card" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="w-10 mb-2">
+                <img
+                  src="{{asset('rebirth/assets/icons/contact-man.svg')}}"
+                  alt=""
+                  class="w-full" />
+              </div>
+              <h4 class="text-lg/relaxed font-semibold mb-2">
+                Smart Contact Management
+              </h4>
+              <p class="body-sm">
+                Import, organize, and manage your contacts with ease. Support
+                for CSV, Excel, and group management features.
+              </p>
+            </div>
+            <div class="skz-card" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="w-10 mb-2">
+                <img src="{{asset('rebirth/assets/icons/real.svg')}}" alt="" class="w-full" />
+              </div>
+              <h4 class="text-lg/relaxed font-semibold mb-2">
+                Real-Time Delivery Reports
+              </h4>
+              <p class="body-sm">
+                Track every message in real-time. Get detailed delivery reports
+                with timestamps, delivery status, and recipient feedback.
+              </p>
+            </div>
+            <div class="skz-card" data-aos="zoom-in" data-aos-delay="50" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="w-10 mb-2">
+                <img
+                  src="{{asset('rebirth/assets/icons/campaigns.svg')}}"
+                  alt=""
+                  class="w-full" />
+              </div>
+              <h4 class="text-lg/relaxed font-semibold mb-2">
+                Schedule Your Campaigns
+              </h4>
+              <p class="body-sm">
+                Plan your marketing campaigns ahead of time. Schedule SMS
+                messages for optimal delivery times and never miss important
+                dates.
+              </p>
+            </div>
+          </div>
+          <div class="tabletsm:hidden flex" data-aos="fade-in" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+            <div class="swiper">
+              <div class="swiper-wrapper w-full flex">
+                <div class="swiper-slide">
+                  <div class="skz-card">
+                    <div class="w-10 mb-2">
+                      <img
+                        src="{{asset('rebirth/assets/icons/send.svg')}}"
+                        alt=""
+                        class="w-full" />
+                    </div>
+                    <h4 class="text-lg/relaxed font-semibold mb-2">
+                      Send to Thousands Instantly
+                    </h4>
+                    <p class="body-sm">
+                      Reach your entire customer base with a single click.
+                      Upload contacts, compose your message, and send to
+                      thousands simultaneously.
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="skz-card">
+                    <div class="w-10 mb-2">
+                      <img
+                        src="{{asset('rebirth/assets/icons/API.svg')}}"
+                        alt=""
+                        class="w-full" />
+                    </div>
+                    <h4 class="text-lg/relaxed font-semibold mb-2">
+                      AI-Powered SMS Creation
+                    </h4>
+                    <p class="body-sm">
+                      Let our AI assistant help you craft compelling messages.
+                      Just describe what you want to say, and get professional
+                      SMS content instantly.
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="skz-card">
+                    <div class="w-10 mb-2">
+                      <img
+                        src="{{asset('rebirth/assets/icons/smart.svg')}}"
+                        alt=""
+                        class="w-full" />
+                    </div>
+                    <h4 class="text-lg/relaxed font-semibold mb-2">
+                      Powerful API Integration
+                    </h4>
+                    <p class="body-sm">
+                      Integrate SMS functionality into your applications with
+                      our RESTful API. Complete documentation and code examples
+                      included.
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="skz-card">
+                    <div class="w-10 mb-2">
+                      <img
+                        src="{{asset('rebirth/assets/icons/contact-man.svg')}}"
+                        alt=""
+                        class="w-full" />
+                    </div>
+                    <h4 class="text-lg/relaxed font-semibold mb-2">
+                      Smart Contact Management
+                    </h4>
+                    <p class="body-sm">
+                      Import, organize, and manage your contacts with ease.
+                      Support for CSV, Excel, and group management features.
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="skz-card">
+                    <div class="w-10 mb-2">
+                      <img
+                        src="{{asset('rebirth/assets/icons/real.svg')}}"
+                        alt=""
+                        class="w-full" />
+                    </div>
+                    <h4 class="text-lg/relaxed font-semibold mb-2">
+                      Real-Time Delivery Reports
+                    </h4>
+                    <p class="body-sm">
+                      Track every message in real-time. Get detailed delivery
+                      reports with timestamps, delivery status, and recipient
+                      feedback.
+                    </p>
+                  </div>
+                </div>
+                <div class="swiper-slide">
+                  <div class="skz-card">
+                    <div class="w-10 mb-2">
+                      <img
+                        src="{{asset('rebirth/assets/icons/campaigns.svg')}}"
+                        alt=""
+                        class="w-full" />
+                    </div>
+                    <h4 class="text-lg/relaxed font-semibold mb-2">
+                      Schedule Your Campaigns
+                    </h4>
+                    <p class="body-sm">
+                      Plan your marketing campaigns ahead of time. Schedule SMS
+                      messages for optimal delivery times and never miss
+                      important dates.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="w-full" id="pricing">
+        <div class="text-center flex flex-col items-center bg-white pt-12 pb-4 tabletsm:px-12 mobilelg:px-8 px-4" data-aos="fade-in" data-aos-delay="50" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+          <h2 class="heading-1">Simple, Transparent Pricing</h2>
+          <p class="body mobilelg:w-7/12 w-10/12">
+            Pay only for what you use. No monthly fees, no hidden charges.
+          </p>
         </div>
 
-
-
-        <!-- Available App End-->
-        <!-- Say Something Start -->
-        <div class="say-something-aera pt-90 pb-90 fix" id="user-guide">
-            <div class="container">
-                <div class="row justify-content-between align-items-center">
-                    <div class="offset-xl-1 offset-lg-1 col-xl-9 col-lg-9 col-md-12 col-sm-12">
-                        <div class="say-something-cap text-left ml-100" >
-                            <p spellcheck="true">Skezzole is simple to use</p>
-                             <p>But we have provided a detailed and simplified user guide for you.</p>
-                             <p></p>
-
-                              <div class="say-btn">
-                                <a href="{{ url('user-guide.pdf') }}" class="btn radius-btn mb-3" download>Download User Guide</a>
-                            
-                        </div>
-                        </div>
-                    </div>
-                    
+        <div class="py-8 bg-skzdark-200 min-h-80 w-full" data-aos="fade-up" data-aos-delay="50" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+          <div
+            class="max-w-screen-xl tabletsm:px-12 mobilelg:px-8 px-4 flex tabletlg:justify-between justify-center lg:items-center items-end mx-auto tabletlg:flex-nowrap flex-wrap gap-y-8">
+            <div class="laptopmd:w-1/2 tabletlg:w-6/12 tabletsm:w-8/12 mobilelg:w-10/12 w-full" data-aos="fade-in" data-aos-delay="1000" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <div class="mobilelg:text-start text-center">
+                <h1
+                  class="mb-4 text-2xl/relaxed font-bold tracking-tight leading-none mobilemd:text-[1.5rem]/normal tabletsm:text-[2rem]/snug text-skzyellow-700 tabletmd:w-10/12 w-full">
+                  ₦4 per SMS unit - No tiers, no complexity, no hidden fees
+                </h1>
+                <p
+                  class="mobilelg:text-lg text-base text-white mb-4 xl:w-11/12 w-full">
+                  Whether you're sending 10 messages or 10 million, every SMS
+                  costs exactly ₦4 per page. Start with any amount, scale without
+                  surprises.
+                </p>
+              </div>
+              <div
+                class="border border-white rounded-md p-2 laptopmd:w-9/12 w-full relative">
+                <label for="amount" class="font-medium text-white"
+                  >Enter number of SMS units to buy</label
+                >
+                <span
+                  class="absolute right-2 top-16 transform -translate-y-1/2 h-16 w-20 text-center bg-skzyellow-400 flex items-center justify-center text-white font-medium rounded-e-sm">
+                  SMS
+                </span>
+                <input
+                  type="number"
+                  placeholder="5,000"
+                  class="h-16 rounded-sm w-full bg-white text-skzdark-100 font-medium text-2xl placeholder:text-2xl font-secondary outline-none focus:bg-gray-200 ps-2"
+                  aria-label="Enter Amount"
+                  id="amount"
+                  name="amount" />
+              </div>
+              <div class="mt-8 xl:w-10/12 w-full tabletlg:inline-block hidden">
+                <h1 class="text-white font-semibold text-lg/loose mb-2">
+                  Key Benefits
+                </h1>
+                <div class="flex items-center w-full flex-wrap space-y-2">
+                  <div
+                    class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                    <img
+                      src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                      class=""
+                      alt="features-icon" />
+                    <p class="text-base text-white">Basic delivery reports</p>
+                  </div>
+                  <div
+                    class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                    <img
+                      src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                      class=""
+                      alt="features-icon" />
+                    <p class="text-base text-white">Priority support</p>
+                  </div>
+                  <div
+                    class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                    <img
+                      src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                      class=""
+                      alt="features-icon" />
+                    <p class="text-base text-white">Web portal access</p>
+                  </div>
+                  <div
+                    class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                    <img
+                      src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                      class=""
+                      alt="features-icon" />
+                    <p class="text-base text-white">
+                      Dedicated account manager
+                    </p>
+                  </div>
+                  <div
+                    class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                    <img
+                      src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                      class=""
+                      alt="features-icon" />
+                    <p class="text-base text-white">API access</p>
+                  </div>
+                  <div
+                    class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                    <img
+                      src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                      class=""
+                      alt="features-icon" />
+                    <p class="text-base text-white">Custom integrations</p>
+                  </div>
                 </div>
+              </div>
             </div>
-            <!-- shape -->
-            <div class="say-shape">
-                <img src="{{ asset('assets/img/shape/say-shape-left.png')}}" alt="" class="say-shape1 rotateme d-none d-xl-block">
-                
+            <div class="tabletlg:w-5/12 tabletsm:w-8/12 mobilelg:w-10/12 w-full p-8 rounded-md bg-white" data-aos="fade-in" data-aos-delay="1000" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+              <h1 class="heading-1">Standard</h1>
+              <div class="flex flex-col gap-0 items-center">
+                <table class="w-full my-4 text-start">
+                  <tbody class="">
+                    <tr>
+                      <td class="text-base text-left">SMS Unit Quantity</td>
+                      <td class="text-base text-left" id="quantity">000.00</td>
+                    </tr>
+                    <tr>
+                      <td class="text-base text-left">Cost Per SMS</td>
+                      <td class="text-base text-left" id="unit-cost">₦ 4</td>
+                    </tr>
+                    <tr class="">
+                      <th class="text-base text-left">Total Price</th>
+                      <th class="text-base text-left" id="total">₦00.00</th>
+                    </tr>
+                  </tbody>
+                </table>
+                <div
+                  class="space-x-2 flex flex-row-reverse justify-center items-center w-full mt-4">
+                  <img
+                    src="{{asset('rebirth/assets/icons/paystack-logo.png')}}"
+                    class="w-28 h-fit"
+                    alt="features-icon" />
+                  <p class="text-base text-skzdark-200 w-fit">Powered by</p>
+                </div>
+                <a href="{{route('buy-unit')}}" class="btn-primary mt-8 w-8/12 py-8">Buy Now</a>
+              </div>
             </div>
+            <div
+              class="mobilelg:mt-8 mt-0 tabletlg:w-10/12 tabletsm:w-8/12 mobilelg:w-10/12 w-full tabletlg:hidden block">
+              <h1 class="text-white font-semibold text-lg/loose mb-2">
+                Key Benefits
+              </h1>
+              <div class="flex items-center w-full flex-wrap space-y-2">
+                <div
+                  class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                  <img
+                    src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                    class=""
+                    alt="features-icon" />
+                  <p class="text-base text-white">Basic delivery reports</p>
+                </div>
+                <div
+                  class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                  <img
+                    src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                    class=""
+                    alt="features-icon" />
+                  <p class="text-base text-white">Priority support</p>
+                </div>
+                <div
+                  class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                  <img
+                    src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                    class=""
+                    alt="features-icon" />
+                  <p class="text-base text-white">Web portal access</p>
+                </div>
+                <div
+                  class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                  <img
+                    src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                    class=""
+                    alt="features-icon" />
+                  <p class="text-base text-white">Dedicated account manager</p>
+                </div>
+                <div
+                  class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                  <img
+                    src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                    class=""
+                    alt="features-icon" />
+                  <p class="text-base text-white">API access</p>
+                </div>
+                <div
+                  class="laptopmd:space-x-4 space-x-2 flex justify-start items-center mobilelg:w-1/2 w-full">
+                  <img
+                    src="{{asset('rebirth/assets/icons/square-check-big.svg')}}"
+                    class=""
+                    alt="features-icon" />
+                  <p class="text-base text-white">Custom integrations</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- Say Something End -->
-        
+      </section>
+      <section class="bg-white">
+        <div class="max-w-screen-xl tabletlg:px-12 mobilelg:px-8 px-4 tabletsm:py-20 py-12 mx-auto flex flex-col items-center space-y-8" data-aos="fade-in" data-aos-delay="300" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+          <div class="text-center flex flex-col items-center w-full">
+            <h2 class="heading-1">Frequently Asked Questions</h2>
+            <p class="body mobilelg:w-7/12 w-full">
+              Everything you need to know
+            </p>
+          </div>
+          <div
+            id="accordion-container "
+            class="space-y-4 mx-auto laptopmd:w-7/12 tabletlg:w-8/12 mobilelg:w-10/12 w-full">
+            <div class="accordion-item">
+              <h2>
+                <button type="button" class="accordion-header">
+                  <span class="mobilemd:text-base text-sm font-semibold"
+                    >How quickly are messages delivered?</span
+                  >
+                  <span class="accordion-icon">+</span>
+                </button>
+              </h2>
+              <div class="accordion-content" style="max-height: 0px">
+                <div class="p-6 pt-2">
+                  <p class="body-sm">
+                    Messages are typically delivered within seconds. Our
+                    platform is optimized for high-speed delivery to ensure your
+                    communications are timely and effective.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2>
+                <button type="button" class="accordion-header">
+                  <span class="mobilemd:text-base text-sm font-semibold"
+                    >What payment methods do you accept?</span
+                  >
+                  <span class="accordion-icon">+</span>
+                </button>
+              </h2>
+              <div class="accordion-content" style="max-height: 0px">
+                <div class="p-6 pt-2">
+                  <p class="body-sm">
+                    We accept all major credit cards, including Visa,
+                    MasterCard, and American Express. We also support payments
+                    via PayPal and bank transfers for annual plans.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <h2>
+                <button type="button" class="accordion-header">
+                  <span class="mobilemd:text-base text-sm font-semibold"
+                    >Can I get a refund for unused SMS units?</span
+                  >
+                  <span class="accordion-icon">+</span>
+                </button>
+              </h2>
+              <div class="accordion-content" style="max-height: 0px">
+                <div class="p-6 pt-2">
+                  <p class="body-sm">
+                    No, we do not offer refunds for unused SMS units. Credits
+                    are purchased in bundles and do not expire, so you can use
+                    them whenever you need them.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 @endsection

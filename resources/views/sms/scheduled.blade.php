@@ -2,7 +2,7 @@
 @section('title', 'Scheduled Messages')
 @section('actionLink', route('compose-sms'))
 @section('actionText', 'Compose Message')
-@section('actionIcon', '<i class="fa fa-pencil"></i>')
+@section('actionIcon', 'fa fa-pencil')
 @section('content')
 
 <div class="main-container">
@@ -35,30 +35,19 @@
 									@endphp
 
 										@php
-										// $message->schedule()->first()->contact
-											// foreach ($message->contacts as $key => $contact) {
-												
-											// 	array_push($contactArr, [$contact->slug=>$contact->title]);
-											// }
-
 											foreach($message->schedule as $schedule){
 												$contactArr[$schedule->contact->slug] = $schedule->contact->title;
-												// array_push($contactArr, [$schedule->contact->slug=>$schedule->contact->title]);
 											}
-											// dd($contactArr);
 										@endphp
 									@php $count ++; @endphp
 									<tr id="row-{{ $message->slug }}">
 										<td class="table-plus">{{ $count }}</td>
 										<td>{{ substr($message->title, 0, 20) }} {{ strlen($message->title)>20?'...':'' }}</td>
-										{{-- <td>{{ substr($message->content, 0, 20) }} {{ strlen($message->content)>20?'...':'' }}</td> --}}
-										{{-- <td>{{ date('d.m.Y', strtotime($message->created_at)) }}</td> --}}
 										<td>@if(!is_null($message->schedule()->first())){{ date('d.m.Y, h:i a', $message->schedule()->first()->date) }}@else N/A @endif</td>
 										<td><span class="badge badge-{{ $message->messageStatus->color }}">{{ $message->messageStatus->statement }}</span></td>
 										<td>
 											<a href="javascript::void(0)" class="btn btn-secondary btn-sm"  data-toggle="modal" data-target="#view-{{ $message->slug }}">View <i class="fa fa-eye"></i></a>
 											<a href="{{ route('edit-message', $message->slug).'?action=modify_schedule' }}" class="btn btn-primary btn-sm">Edit <i class="fa fa-edit"></i></a>
-											{{-- <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#edit-{{ $count }}">Edit <i class="fa fa-edit"></i></button> --}}
 											@if($message->messageStatus->number!='5')
 											<button class="btn btn-danger btn-sm" type="button" id="delete-btn-{{ $message->slug }}" slug="{{ $message->slug }}">Cancel <i class="fa fa-power-off"></i></button>
 											@endif

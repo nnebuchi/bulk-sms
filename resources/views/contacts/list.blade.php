@@ -2,7 +2,7 @@
 @section('title', 'Contact List')
 @section('actionLink', route('create-contact'))
 @section('actionText', 'New Contact')
-@section('actionIcon', '<i class="fa fa-pencil"></i>')
+@section('actionIcon', 'fa fa-pencil')
 @section('deleteModal', 'delete-selection-modal')
 @section('batchDeleteRoute', route('delete-multiple-contact'))
 @section('content')
