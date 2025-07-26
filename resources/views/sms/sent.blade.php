@@ -2,7 +2,7 @@
 @section('title', 'Sent Messages')
 @section('actionLink', route('compose-sms'))
 @section('actionText', 'Compose Message')
-@section('actionIcon', '<i class="fa fa-pencil"></i>')
+@section('actionIcon', 'fa fa-pencil')
 @section('content')
 
 <div class="main-container">

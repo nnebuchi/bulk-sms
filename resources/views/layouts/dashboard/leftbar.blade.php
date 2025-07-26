@@ -1,8 +1,9 @@
 <div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="javascript:void(0)">
-				<img src="{{ asset('dashboard/vendors/images/logo.png') }}" alt="" class="dark-logo">
-				<img src="{{ asset('dashboard/vendors/images/logo-dark.png') }}" alt="" class="light-logo">
+				<img src="{{asset('rebirth/assets/images/skezzole_black.png')}}" alt="" class="dark-logo">
+
+				<img src="{{asset('rebirth/assets/images/skezzole_white.png')}}" alt="" class="light-logo">
 			</a>
 			<div class="close-sidebar" data-toggle="left-sidebar-close">
 				<i class="ion-close-round"></i>
@@ -50,12 +51,12 @@
 							<li><a href="{{ route('credits') }}">Purchase History</a></li>
 						</ul>
 					</li>
-					{{-- <li>
+					 <li>
 						<a href="calendar.html" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
+							<span class="micon dw dw-calendar1"></span><span class="mtext">API	</span>
 						</a>
 					</li>
-					<li class="dropdown">
+					{{--<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
 							<span class="micon dw dw-apartment"></span><span class="mtext"> UI Elements </span>
 						</a>

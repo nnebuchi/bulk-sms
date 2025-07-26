@@ -25,7 +25,7 @@
                                     
                                     <div class="text-center">
                                         {{-- <img src="{{ asset('assets/img/logo/logo.png') }}"  style="width: 180px; margin-top: 20px;"> --}}
-                                        <img src="{{ asset('assets/img/logo/logo.png') }}" width="150" alt="">
+                                        <img src="{{asset('rebirth/assets/images/skezzole_black.png')}}" width="150" alt="">
                                     </div>
                                     
                                     <div class="text-center mt-3">
