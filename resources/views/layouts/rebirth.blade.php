@@ -16,14 +16,16 @@
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="{{asset('rebirth/assets/aos-master/dist/aos.css')}}" />
     <script src="{{asset('rebirth/assets/aos-master/dist/aos.js')}}"></script>
+    
+    <script src="{{asset('rebirth/src/script.js')}}"></script>
     <title>@yield('title')</title>
   </head>
     @include('layouts.shared.rebirth.header')
   <body>
+    
     <main>
         @yield('content')
     </main>
-    <script src="{{asset('rebirth/src/script.js')}}"></script>
   </body>
   <footer class="bg-skzdark-200 min-h-[400px] tabletsm:py-16 py-8">
     <div class="laptopmd:px-12 tabletsm:px-8 px-4 max-w-screen-xl mx-auto">
