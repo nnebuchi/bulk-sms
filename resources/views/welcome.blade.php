@@ -1,8 +1,7 @@
 @extends('layouts.rebirth')
 @section('title', env('APP_NAME'))
 @section('content')
-  <section
-    class="bg-skzgrey-100 tabletmd:min-h-screen min-h-[500px] pt-24 relative isolate flex flex-col justify-between">
+  <section class="bg-skzgrey-100 tabletmd:min-h-screen min-h-[500px] pt-24 relative isolate flex flex-col justify-between">
     <img src="{{asset('rebirth/assets/images/hero-circle.png')}}" class="absolute left-0 tabletsm:bottom-0 bottom-0 z-0 isolate" alt="" />
     <div
       class="max-w-screen-xl tabletlg:px-12 mobilemd:px-8 px-4 py-8 mx-auto flex tabletsm:justify-between justify-center items-start tabletsm:flex-nowrap gap-y-8 flex-wrap relative z-10">
@@ -294,7 +293,7 @@
           expectations.
         </p>
       </div>
-      <div class="justify-center items-center w-full gap-4 flex-wrap tabletsm:flex hidden">
+      <div class="justify-center items-center w-full gap-4 flex-wrap tabletsm:flex ">
         <div class="skz-card" data-aos="zoom-in" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
           <div class="w-10 mb-2">
             <img src="{{asset('rebirth/assets/icons/send.svg')}}" alt="" class="w-full" />
@@ -377,7 +376,7 @@
           </p>
         </div>
       </div>
-      <div class="tabletsm:hidden flex" data-aos="fade-in" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
+      {{-- <div class="tabletsm:hidden flex" data-aos="fade-in" data-aos-delay="0" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
         <div class="swiper">
           <div class="swiper-wrapper w-full flex">
             <div class="swiper-slide">
@@ -489,7 +488,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
   </section>
   <section class="w-full" id="pricing">
