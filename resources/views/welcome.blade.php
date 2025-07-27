@@ -293,7 +293,7 @@
           expectations.
         </p>
       </div>
-      <div class="justify-center items-center w-full gap-4 flex-wrap tabletsm:flex ">
+      <div class="justify-center items-center w-full gap-4 flex-wrap flex ">
         <div class="skz-card" data-aos="zoom-in" data-aos-delay="0" data-aos-duration="1500" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true">
           <div class="w-10 mb-2">
             <img src="{{asset('rebirth/assets/icons/send.svg')}}" alt="" class="w-full" />
@@ -613,7 +613,7 @@
               class="space-x-2 flex flex-row-reverse justify-center items-center w-full mt-4">
               <img
                 src="{{asset('rebirth/assets/icons/paystack-logo.png')}}"
-                class="w-28 h-fit"
+                class="w-28 h-auto block"
                 alt="features-icon" />
               <p class="text-base text-skzdark-200 w-fit">Powered by</p>
             </div>

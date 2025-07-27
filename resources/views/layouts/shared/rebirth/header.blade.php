@@ -7,8 +7,10 @@
           class="flex items-center space-x-3 rtl:space-x-reverse tabletmd:w-40 mobilemd:w-32 mobilesm:w-28 w-12">
           <img
             src="{{asset('rebirth/assets/images/skezzole_black.png')}}"
-            class="h-fit w-full mobilesm:flex hidden"
-            alt="Skezzole Logo" />
+            class="w-full h-auto mobilesm:flex hidden block"
+            alt="Skezzole Logo" 
+          />
+
           <img
             src="{{asset('rebirth/assets/icons/skezzole_icon_black.png')}}"
             class="h-fit w-50 mobilesm:hidden flex"
