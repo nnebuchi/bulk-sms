@@ -101,11 +101,12 @@ class UserController extends Controller
          return view('error.invalid-link');
       }
       Session(['email'=>$email]);
-      return view('auth.change-password');
+      return view('auth.change-password_rebirth');
 
    }
 
     public function changePassword(Request $request){
+        // dd($request);
       $request->validate([
          'password'=>'required|confirmed|min:8',
       ]);

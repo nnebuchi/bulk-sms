@@ -22,4 +22,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'sms'], function () {
     
     Route::post('/feedback', 'SmsController@feedback')->name('upload-contact');
+
+    
 });

@@ -302,7 +302,7 @@ class SmsController extends Controller
             $data['action']=clean($request->action);
         }
         $message = $data['message'] = Message::where('slug', clean($request->slug))->first();
-        return view('sms.edit')->with($data);
+        return view('sms.compose_rebirth')->with($data);
     }
 
     public function delete(Request $request){

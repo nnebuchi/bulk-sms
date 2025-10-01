@@ -26,7 +26,7 @@
                             placeholder="Enter your email"
                             required="" />
                             @error('email')
-                            <span class="text-skz-danger">{{ $message }}</span>
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                         </div>
                         <div class="relative">
@@ -42,7 +42,7 @@
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-skzyellow-700 focus:border-skzyellow-700 block w-full p-2.5 focus:outline-0"
                             required="" />
                             @error('password')
-                            <span class="text-skz-danger">{{ $message }}</span>
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -65,7 +65,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <a href="#" class="text-skzyellow-700 hover:underline font-medium">Forgot password?</a>
+                            <a href="{{route('forgot-password')}}" class="text-skzyellow-700 hover:underline font-medium">Forgot password?</a>
                         </div>
                         <button type="submit" class="w-full btn-primary">Login</button>
                         <p class="text-base font-normal text-skzdark-100">

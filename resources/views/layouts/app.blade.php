@@ -13,7 +13,9 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/logo/fav-icon.png') }}">
+    {{-- <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/logo/fav-icon.png') }}"> --}}
+    
+    <link rel="icon" type="image/svg+xml" href="{{asset('rebirth/assets/icons/favicon.png')}}" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 

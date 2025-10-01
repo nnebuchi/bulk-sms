@@ -28,7 +28,7 @@
                                         </div>
                                     @endif --}}
                                     <div class="text-center">
-                                        <img src="{{ asset('dashboard/vendors/images/logo.png')}}"  width="100" alt="logo">
+                                        <img src="{{asset('rebirth/assets/images/skezzole_black.png')}}"  width="100" alt="logo">
                                     </div>
                                     
                                     <div class="text-center">

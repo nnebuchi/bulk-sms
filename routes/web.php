@@ -37,7 +37,7 @@ Route::get('/terms', function () {
 Route::get('/verify-email/{email}/{code}', 'UserController@verifyEmail')->name('verify-email');
 
 Route::get('/forgot-password', function(){
-    return view('auth.passwords.forgot-password');
+    return view('auth.passwords.forgot-password_rebirth');
 })->name('forgot-password');
 
 Route::post('/send-password-reset-link', 'UserController@sendPasswordResetLink')->name('send-password-reset-link');

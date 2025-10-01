@@ -12,7 +12,7 @@
 </style>
 <div class="row">
 	<div  class="col-12 text-left">
-		<img src="{{ asset('assets/img/logo/logo.png') }}"  style="width: 180px; margin-top: 20px;">
+		<img src="{{asset('rebirth/assets/images/skezzole_black.png')}}"  style="width: 180px; margin-top: 20px;">
 	</div>
 </div>
 <h3>Hi {{ $user->username }}</h3>
@@ -38,6 +38,6 @@
 	<p>This message was sent to you by Skezzole</p>
 
 	<p>For support, contact us via <a href="mail-to:support@skezzole.com.ng"></a>support@skezzole.com.ng</p>
-	<img src="{{ asset('assets/img/logo/logo.png') }}"  style="width: 60px;">
+	<img src="{{asset('rebirth/assets/images/skezzole_black.png')}}"  style="width: 60px;">
 	<p style="font-size:12px;">Copyright &copy; Skezzole - 2022 </p>
 	{{-- src="assets/img/logo/logo.png" --}}
