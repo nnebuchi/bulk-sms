@@ -24,6 +24,7 @@
   <body>
     
     <main>
+        @include('layouts.shared.rebirth.alert')
         @yield('content')
     </main>
   </body>

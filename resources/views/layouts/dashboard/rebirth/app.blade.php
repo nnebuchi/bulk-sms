@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{{asset('rebirth/assets/fontawesome/css/all.css')}}" />
     <link rel="stylesheet" href="{{asset('rebirth/src/output.css')}}" />
     
+	  <link rel="stylesheet" type="text/css" href="{{ asset('dashboard/src/plugins/sweetalert2/sweetalert2.css')}}">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{{asset('rebirth/src/dashboard.js')}}" defer></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
@@ -45,10 +47,12 @@
       @include('layouts.dashboard.rebirth.navbar')
 
       <main class="flex-1 mobilemd:p-6 p-5 overflow-y-auto">
+        @include('layouts.shared.rebirth.alert')
         @yield('content')
       </main>
     </div>
-
+    <script src="{{ asset('dashboard/src/plugins/sweetalert2/sweet-alert.init.js')}}"></script> 
+	  <script src="{{ asset('dashboard/src/plugins/sweetalert2/sweetalert2.all.js')}}"></script> 
     
   </body>
 </html>

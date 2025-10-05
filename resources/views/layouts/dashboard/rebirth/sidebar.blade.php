@@ -119,17 +119,17 @@
               >Compose</a
             >
             <a
-              href="sent.html"
+              href="{{ route('sent-sms') }}"
               class="block p-2 rounded-lg text-gray-600 hover:bg-[#FFCB00] transition-colors"
               >Sent</a
             >
             <a
-              href="drafts.html"
+              href="{{ route('draft') }}"
               class="block p-2 rounded-lg text-gray-600 hover:bg-[#FFCB00] transition-colors"
               >Drafts</a
             >
             <a
-              href="schedule.html"
+              href="{{ route('scheduled-sms') }}"
               class="block p-2 rounded-lg text-gray-600 hover:bg-[#FFCB00] transition-colors"
               >Scheduled</a
             >
@@ -224,7 +224,7 @@
               >Buy Unit</a
             >
             <a
-              href="purchase-history.html"
+              href="{{route('credits')}}"
               class="block p-2 rounded-lg text-gray-600 hover:bg-[#FFCB00] transition-colors"
               >Purchase History</a
             >
@@ -264,13 +264,15 @@
           </button>
           <div id="api-menu" class="hidden pl-6 mobilelg:space-y-2 space-y-0">
             <a
-              href="#"
+              href="{{route('reseller.api_keys.index')}}"
               class="block p-2 rounded-lg text-gray-600 hover:bg-[#FFCB00] transition-colors"
-              >API Credentials</a
+             
+            >API Credentials</a
             >
             <a
-              href="#"
+              href="{{route('docs')}}"
               class="block p-2 rounded-lg text-gray-600 hover:bg-[#FFCB00] transition-colors"
+               target="_blank"
               >API Documentation</a
             >
           </div>
@@ -320,7 +322,9 @@
         </a>
         <a
           href="#"
-          class="flex items-center space-x-2 mobilelg:p-3 p-2 rounded-lg text-red-500 hover:bg-red-50 transition-colors">
+          class="flex items-center space-x-2 mobilelg:p-3 p-2 rounded-lg text-red-500 hover:bg-red-50 transition-colors"
+          onclick="event.preventDefault();document.getElementById('logout-form').submit();"
+        >
           <span class="text-xl fa fa-sign-out"></span>
           <span class="nav-text">Log Out</span>
         </a>

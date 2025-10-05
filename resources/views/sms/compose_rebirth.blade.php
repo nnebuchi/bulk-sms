@@ -48,7 +48,7 @@
                     class="block text-gray-600 font-normal"
                     >Message Content</label
                   >
-                  <div class="flex items-center space-x-2">
+                  {{-- <div class="flex items-center space-x-2">
                     <span class="text-sm text-gray-500">AI Compose</span>
                     <label
                       class="relative inline-flex items-center cursor-pointer">
@@ -60,7 +60,7 @@
                       <div
                         class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#FFCB00]"></div>
                     </label>
-                  </div>
+                  </div> --}}
                 </div>
 
                 <div id="ai-prompt-container" class="hidden mt-4">

@@ -249,4 +249,381 @@
   }
 
 
+  
+  // --- 1. API Public Token Logic ---
+
+  // Public Token Elements
+  const publicTokenInput = document.getElementById("api-public-token-input");
+  const publicVisibilityIcon = document.getElementById(
+    "public-visibility-toggle-icon"
+  );
+  const publicCopyIcon = document.getElementById("public-copy-icon");
+
+  if (publicTokenInput && publicVisibilityIcon && publicCopyIcon) {
+    // Visibility Toggle
+    publicVisibilityIcon.addEventListener("click", () => {
+      if (publicTokenInput.type === "password") {
+        publicTokenInput.type = "text";
+        publicVisibilityIcon.classList.remove("fa-eye");
+        publicVisibilityIcon.classList.add("fa-eye-slash");
+      } else {
+        publicTokenInput.type = "password";
+        publicVisibilityIcon.classList.remove("fa-eye-slash");
+        publicVisibilityIcon.classList.add("fa-eye");
+      }
+    });
+
+    // Copy Logic
+    publicCopyIcon.addEventListener("click", async () => {
+      await copyTokenToClipboard(publicTokenInput, publicCopyIcon);
+    });
+  }
+
+  // --- 2. API Secret Token Logic ---
+
+  // Secret Token Elements
+  const secretTokenInput = document.getElementById("api-secret-token-input");
+  const secretVisibilityIcon = document.getElementById(
+    "secret-visibility-toggle-icon"
+  );
+  const secretCopyIcon = document.getElementById("secret-copy-icon");
+
+  if (secretTokenInput && secretVisibilityIcon && secretCopyIcon) {
+    // Visibility Toggle
+    secretVisibilityIcon.addEventListener("click", () => {
+      if (secretTokenInput.type === "password") {
+        secretTokenInput.type = "text";
+        secretVisibilityIcon.classList.remove("fa-eye");
+        secretVisibilityIcon.classList.add("fa-eye-slash");
+      } else {
+        secretTokenInput.type = "password";
+        secretVisibilityIcon.classList.remove("fa-eye-slash");
+        secretVisibilityIcon.classList.add("fa-eye");
+      }
+    });
+
+    // Copy Logic
+    secretCopyIcon.addEventListener("click", async () => {
+      await copyTokenToClipboard(secretTokenInput, secretCopyIcon);
+    });
+  }
+
+  // --- Shared Helper Function for Copy Logic (Keeps code DRY) ---
+
+  async function copyTokenToClipboard(inputElement, iconElement) {
+    const tokenValue = inputElement.value;
+    const originalIcon = iconElement.querySelector("i");
+
+    try {
+      await navigator.clipboard.writeText(tokenValue);
+
+      // Visual feedback: checkmark
+      originalIcon.classList.remove("fa-copy", "text-gray-500");
+      originalIcon.classList.add("fa-check", "text-green-500");
+
+      // Reset icon
+      setTimeout(() => {
+        originalIcon.classList.remove("fa-check", "text-green-500");
+        originalIcon.classList.add("fa-copy", "text-gray-500");
+      }, 1500);
+    } catch (err) {
+      console.error("Failed to copy token:", err);
+      // Fallback
+      inputElement.select();
+      document.execCommand("copy");
+    }
+  }
+
+  // API Documentation
+
+  const tabsContainer = document.getElementById("code-tabs");
+  const tabs = document.querySelectorAll(".tab-button");
+  const contents = document.querySelectorAll(".tab-content");
+  const copyButton = document.getElementById("copy-code-btn");
+
+  let activeTabId = "curl"; // Default active tab
+
+  // --- Tab Switching Logic ---
+  function switchTab(targetId) {
+    activeTabId = targetId;
+
+    tabs.forEach((tab) => {
+      const isActive = tab.dataset.tab === targetId;
+      tab.classList.toggle("border-blue-500", isActive);
+      tab.classList.toggle("bg-gray-50", isActive);
+      tab.classList.toggle("text-gray-800", isActive);
+      tab.classList.toggle("bg-transparent", !isActive);
+      tab.classList.toggle("border-transparent", !isActive);
+    });
+
+    contents.forEach((content) => {
+      const isVisible = content.dataset.content === targetId;
+      content.classList.toggle("hidden", !isVisible);
+    });
+  }
+
+  tabsContainer?.addEventListener("click", (e) => {
+    const targetButton = e.target.closest(".tab-button");
+    if (targetButton) {
+      const targetId = targetButton.dataset.tab;
+      switchTab(targetId);
+    }
+  });
+
+  // Initialize the first tab appearance
+  const initialTab = document.querySelector(
+    `.tab-button[data-tab="${activeTabId}"]`
+  );
+  if (initialTab) {
+    initialTab.classList.add("border-blue-500", "bg-gray-50", "text-gray-800");
+    initialTab.classList.remove("border-transparent", "bg-transparent");
+  }
+
+  // --- Copy Code Logic ---
+  copyButton?.addEventListener("click", async () => {
+    // Find the code block of the currently active tab
+    const activeContent = document.querySelector(
+      `.tab-content[data-content="${activeTabId}"] code`
+    );
+
+    if (activeContent) {
+      const codeToCopy = activeContent.innerText;
+
+      try {
+        await navigator.clipboard.writeText(codeToCopy.trim());
+
+        // Provide visual feedback
+        const copyIcon = copyButton.querySelector("i");
+        copyIcon.classList.remove("fa-copy");
+        copyIcon.classList.add("fa-check", "text-green-400");
+
+        setTimeout(() => {
+          copyIcon.classList.remove("fa-check", "text-green-400");
+          copyIcon.classList.add("fa-copy");
+        }, 1500);
+      } catch (err) {
+        console.error("Failed to copy code: ", err);
+      }
+    }
+  });
+
+  const avatarUpload = document.getElementById("avatar-upload");
+  const profileAvatar = document.getElementById("profile-avatar");
+  const changeImageBtn = document.getElementById("change-image-btn");
+  const removeImageBtn = document.getElementById("remove-image-btn");
+
+  // Trigger file input when "Change Image" button is clicked
+  changeImageBtn?.addEventListener("click", () => {
+    avatarUpload?.click();
+  });
+
+  // Handle image preview when a file is selected
+  avatarUpload?.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (profileAvatar) {
+          profileAvatar.src = e.target.result;
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Remove image logic
+  removeImageBtn?.addEventListener("click", () => {
+    if (profileAvatar) {
+      profileAvatar.src = "https://via.placeholder.com/96"; // Reset to a default placeholder
+      avatarUpload.value = ""; // Clear the file input
+      alert(
+        "Profile image removed (visually, refresh to see old image if not saved)"
+      );
+    }
+  });
+
+  // --- First Name / Last Name Edit Logic ---
+  const firstNameInput = document.getElementById("first-name");
+  const lastNameInput = document.getElementById("last-name");
+  const editNameBtn = document.getElementById("edit-name-btn");
+  const nameEditActions = document.getElementById("name-edit-actions");
+  const saveNameBtn = document.getElementById("save-name-btn");
+  const cancelNameEditBtn = document.getElementById("cancel-name-edit-btn");
+
+  let originalFirstName = firstNameInput?.value;
+  let originalLastName = lastNameInput?.value;
+
+  function enableEditMode() {
+    if (firstNameInput) {
+      firstNameInput.readOnly = false;
+      firstNameInput.classList.remove("bg-gray-50");
+      firstNameInput.classList.add("bg-white");
+      firstNameInput.focus();
+    }
+    if (lastNameInput) {
+      lastNameInput.readOnly = false;
+      lastNameInput.classList.remove("bg-gray-50");
+      lastNameInput.classList.add("bg-white");
+    }
+    if (editNameBtn) editNameBtn.classList.add("hidden");
+    if (nameEditActions) nameEditActions.classList.remove("hidden");
+  }
+
+  function disableEditMode() {
+    if (firstNameInput) {
+      firstNameInput.readOnly = true;
+      firstNameInput.classList.add("bg-gray-50");
+      firstNameInput.classList.remove("bg-white");
+    }
+    if (lastNameInput) {
+      lastNameInput.readOnly = true;
+      lastNameInput.classList.add("bg-gray-50");
+      lastNameInput.classList.remove("bg-white");
+    }
+    if (editNameBtn) editNameBtn.classList.remove("hidden");
+    if (nameEditActions) nameEditActions.classList.add("hidden");
+  }
+
+  // "Edit" button click
+  editNameBtn?.addEventListener("click", () => {
+    originalFirstName = firstNameInput?.value; // Store current values
+    originalLastName = lastNameInput?.value;
+    enableEditMode();
+  });
+
+  // "Save" button click
+  saveNameBtn?.addEventListener("click", () => {
+    // In a real application, you'd send an AJAX request here to save the new names.
+    // For this example, we'll just disable edit mode.
+    alert(
+      `Saved: First Name - ${firstNameInput.value}, Last Name - ${lastNameInput.value}`
+    );
+    disableEditMode();
+  });
+
+  // "Cancel" button click
+  cancelNameEditBtn?.addEventListener("click", () => {
+    if (firstNameInput) firstNameInput.value = originalFirstName; // Revert to original values
+    if (lastNameInput) lastNameInput.value = originalLastName;
+    disableEditMode();
+  });
+
+  // --- Other Button Placeholders (Add your specific logic here) ---
+  document.querySelectorAll("button").forEach((button) => {
+    if (
+      ![
+        "edit-name-btn",
+        "save-name-btn",
+        "cancel-name-edit-btn",
+        "change-image-btn",
+        "remove-image-btn",
+      ].includes(button.id)
+    ) {
+      button.addEventListener("click", () => {
+        // console.log(`Button clicked: ${button.textContent.trim()}`);
+        // Example: if (button.textContent.includes('Log Out')) { /* perform logout */ }
+      });
+    }
+  });
+
+  Highcharts?.chart("container", {
+    chart: {
+      type: "column",
+    },
+    title: {
+      text: "Total SMS sent over a period ",
+    },
+    // subtitle: {
+    //   text:
+    //     'Source: <a target="_blank" ' +
+    //     'href="https://www.indexmundi.com/agriculture/?commodity=corn">indexmundi</a>',
+    // },
+    xAxis: {
+      categories: [
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+      ],
+      crosshair: true,
+      accessibility: {
+        description: "Months",
+      },
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: "Total SMS Sent",
+      },
+    },
+    tooltip: {
+      valueSuffix: " (1000 SMS)",
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0,
+      },
+    },
+    series: [
+      {
+        name: "Sent SMS",
+        data: [387749, 280000, 129000, 64300, 54000, 34300],
+      },
+      {
+        name: "Scheduled",
+        data: [45321, 140000, 10000, 140500, 19500, 113500],
+      },
+    ],
+  });
+
+  function flashMessage(type, content) {
+  // Clear any previous alerts
+  $('.alert-msg').empty();
+
+  // Define Tailwind color classes for each type
+  const alertClasses = {
+    success: 'bg-green-100 text-green-600 ring-green-400',
+    danger: 'bg-red-100 text-red-600 ring-red-400',
+    warning: 'bg-yellow-100 text-yellow-700 ring-yellow-400',
+    info: 'bg-blue-100 text-blue-600 ring-blue-400',
+  };
+
+  // Get appropriate color scheme or default to info
+  const color = alertClasses[type] || alertClasses.info;
+
+  // Create alert HTML
+  const alertHtml = `
+    <div
+      class="alert fixed top-4 left-1/2 transform -translate-x-1/2 z-50 flex items-center px-4 py-3 mb-4 min-h-16 rounded-lg shadow-lg w-11/12 md:w-7/12 ${color} transition-all duration-300 ease-in-out animate-slideDown"
+      role="alert"
+    >
+      <svg class="shrink-0 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+      </svg>
+      <div class="ms-3 text-sm font-medium">${content}</div>
+      <button
+        type="button"
+        class="ms-auto -mx-1.5 -my-1.5 bg-white/30 text-current rounded-lg focus:ring-2 focus:ring-offset-1 p-1.5 hover:bg-white/40 inline-flex items-center justify-center h-8 w-8 transition"
+        aria-label="Close"
+        onclick="$(this).closest('.alert').fadeOut(200, function(){ $(this).remove(); })"
+      >
+        <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+        </svg>
+      </button>
+    </div>
+  `;
+
+  // Append to container
+  $('.alert-msg').append(alertHtml);
+}
+
+
+
+
+
 // });

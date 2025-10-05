@@ -72,7 +72,7 @@
               <a href="{{route('welcome').'#pricing'}}" class="navlink">Pricing</a>
             </li>
             <li>
-              <a href="#" class="navlink">API Docs</a>
+              <a href="{{route('docs')}}" target="_blank" class="navlink">API Docs</a>
             </li>
           </ul>
         </div>
