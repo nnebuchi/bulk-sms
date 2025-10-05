@@ -96,9 +96,6 @@
 								                text: "You won't be able to revert this!",
 								                icon: 'warning',
 								                buttons: true,
-								                // confirmButtonClass: 'btn btn-success',
-								                // cancelButtonClass: 'btn btn-danger',
-								                // confirmButtonText: 'Yes, delete it!',
 
 								            }).then((proceed)=>{
 								            	if (proceed) {
@@ -122,37 +119,17 @@
 													                title: feedback.status,
 													                text: feedback.msg,
 													                icon: feedback.alert,
-													                
-													                // confirmButtonClass: 'btn btn-success',
-													                // cancelButtonClass: 'btn btn-danger',
-													                // confirmButtonText: 'Yes, delete it!',
-
 													            })
-															// flashMessage(feedback.alert, feedback.msg)
-															// alert('Contact Updated');
+															
 														},
 														error:function(param1, param2, param3){
 															alert(param3);
 														}
 													});
 								            	}
-								            })
-								            	
-								            	
-								            	
-								            	
-								            	// $(document).find('.swal2-confirm').on('click', function(){
-								            	// 	alert('confimred')
-								            	// })
-								            	
-								                // swal(
-								                //     'Deleted!',
-								                //     'Your file has been deleted.',
-								                //     'success'
-								                // )
-								            })
+								            })	
+										})
 									        
-								        // });
 									</script>
 									{{-- <div class="modal fade" id="delete-{{ $message->slug }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 									  <div class="modal-dialog modal-dialog-centered" role="document">

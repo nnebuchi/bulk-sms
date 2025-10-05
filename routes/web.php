@@ -27,6 +27,11 @@ Route::get('/', function () {
 Route::get('/terms', function () {
     return view('terms');
 })->name('terms');
+
+Route::get('/docs', function () {
+    return view('docs');
+})->name('docs');
+
 // Route::get('contact-api', function () {
 //     return view('contact-api');
 // });
@@ -37,7 +42,7 @@ Route::get('/terms', function () {
 Route::get('/verify-email/{email}/{code}', 'UserController@verifyEmail')->name('verify-email');
 
 Route::get('/forgot-password', function(){
-    return view('auth.passwords.forgot-password');
+    return view('auth.passwords.forgot-password_rebirth');
 })->name('forgot-password');
 
 Route::post('/send-password-reset-link', 'UserController@sendPasswordResetLink')->name('send-password-reset-link');
@@ -106,6 +111,13 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/verify-paystack-payment', 'PaymentController@verifyPaystackPayment')->name('verify-paystack-payment');
             Route::post('/update', 'PaymentController@update')->name('update-payment');
         });
+
+        // 1. GET route to display the API Key management dashboard (shows the Blade view)
+        Route::get('/reseller/api-credentials', 'ResellerController@manageApiKeys')->name('reseller.api_keys.index');
+        
+        // 2. POST route to handle the request to generate and save a new key
+        Route::post('/reseller/api-credentials/generate', 'ResellerController@generateNewApiKey')->name('reseller.api_keys.generate');
+
     });
 
     

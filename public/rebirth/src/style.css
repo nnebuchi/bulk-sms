@@ -40,7 +40,9 @@
   --color-skzyellow-600: hsla(46, 79%, 15%, 1);
   --color-skzyellow-700: hsla(46, 100%, 62%, 1);
 
-  /* Ascent Colors */
+  /* Error Colors */
+
+  --color-skzdanger: #e74c3c;
 
   /* Text */
   --color-skzdark-100: hsla(200, 18%, 26%, 1);
@@ -123,6 +125,12 @@ input[type="number"]::-webkit-inner-spin-button {
 .heading-1 {
   @apply mb-4 text-[1.6rem] mobilemd:text-3xl mobilelg:text-4xl font-bold tracking-tight leading-none md:text-[2.4rem]/normal xl:text-[2.4rem]/normal text-skzdark-200;
 }
+.heading-2 {
+  @apply mb-4 text-lg mobilemd:text-xl  font-bold tracking-tight leading-none xl:text-2xl/normal text-skzdark-200;
+}
+.heading-3 {
+  @apply mb-4 text-lg mobilemd:text-xl  font-bold tracking-tight leading-none xl:text-lg text-skzdark-200;
+}
 .body {
   @apply text-skzdark-200 lg:mb-8 md:text-lg lg:text-xl leading-tight;
 }
@@ -183,4 +191,43 @@ input[type="number"]::-webkit-inner-spin-button {
   100% {
     transform: translateY(-100%);
   }
+}
+
+/* Dashboard Styling */
+/* src/output.css */
+
+/* Base sidebar styles */
+#sidebar {
+  width: 256px;
+  flex-shrink: 0;
+  transition: width 0.3s ease-in-out;
+}
+
+/* Base text styles with transition for smooth fade */
+.nav-text,
+.logo-text,
+.text-label {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Collapsed state */
+body.sidebar-collapsed #sidebar {
+  width: 80px;
+}
+
+/* Hide text elements in the collapsed state */
+body.sidebar-collapsed .nav-text,
+body.sidebar-collapsed .logo-text,
+body.sidebar-collapsed .text-label {
+  opacity: 0;
+  width: 0; /* Ensures content doesn't push the layout */
+  pointer-events: none; /* Prevents interaction with hidden elements */
+}
+
+/* The chevrons for dropdowns */
+.chevron {
+  transition: transform 0.3s ease-in-out;
 }

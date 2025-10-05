@@ -43,16 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get the menu button (assuming it's a separate element)
   const menuButton = document.getElementById("menu-trigger"); // Replace with the actual ID of your menu button
 
-  const mobileNaLinks = document.querySelectorAll('.mobile-nav-link');
-
-  const closeMobileMenu = () => {
-    mobileMenu.classList.add("slide-up");
-    mobileMenu.classList.remove("slide-down");
-    setTimeout(() => {
-      mobileMenu.classList.replace("flex", "hidden");
-    }, 400);
-  }
-
   // Add event listener to the menu button to show the mobile menu
   menuButton.addEventListener("click", () => {
     console.log("Menu button clicked");
@@ -64,15 +54,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add event listener to the close menu button to hide the mobile menu
   closeMenuButton.addEventListener("click", () => {
     console.log("Close menu button clicked");
-    
-    closeMobileMenu()
+    mobileMenu.classList.add("slide-up");
+    mobileMenu.classList.remove("slide-down");
+    setTimeout(() => {
+      mobileMenu.classList.replace("flex", "hidden");
+    }, 400);
   });
-
-  mobileNaLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      closeMobileMenu()
-    })
-  })
 
   // Add transition effect to the mobile menu
   mobileMenu.addEventListener("transitionend", () => {
@@ -80,7 +67,6 @@ document.addEventListener("DOMContentLoaded", () => {
       mobileMenu.style.display = "none";
     }
   });
-
 
   // Password Visibility
   const passwordInput = document.getElementById("password");
@@ -107,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const totalAmount = document.getElementById("total");
 
   amountEntered?.addEventListener("input", () => {
-    const unitCostValue = 4;
+    const unitCostValue = 5;
     const value = amountEntered.value;
     smsQuantity.textContent = value.toLocaleString("en-US");
 

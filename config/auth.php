@@ -42,7 +42,8 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
+            // 'driver' => 'token',
+            'driver' => 'api_key_guard',
             'provider' => 'users',
             'hash' => false,
         ],

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Auth;
+// use Auth;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -17,7 +17,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'verification_code', 'verified_expiry_date',
     ];
 
     /**
@@ -42,8 +42,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Contact::class)->orderBy('title', 'Asc');
     }
 
-    public function schedules(){
-        return $this->hasMany(Message::class)->where('user_id', Auth::user()->id);
+    // public function schedules(){
+    //     return $this->hasMany(Message::class)->where('user_id', Auth::user()->id);
+    // }
+
+    /**
+     * Get the scheduled messages for the user.
+     * NOTE: I've removed the Auth::user()->id dependency here, models shouldn't rely on global auth state.
+     */
+    public function schedules()
+    {
+        return $this->messages()->whereNotNull('sent_at'); // Assuming a scheduled message has a future or null sent_at
     }
 
     public function units(){
@@ -52,5 +61,24 @@ class User extends Authenticatable implements MustVerifyEmail
 
     function messages(){
         return $this->hasMany(Message::class);
+    }
+
+    /**
+     * Get the API keys associated with the user. (New Relationship)
+     */
+    public function apiKeys()
+    {
+        return $this->hasMany(ApiKey::class);
+    }
+
+    /**
+     * Calculate the current available SMS units. (New method based on your logic)
+     *
+     * @return float
+     */
+    public function getAvailableUnitsAttribute(): float
+    {
+        // Calculate the sum of available_units from the related UnitPurchase models
+        return (float) $this->units()->sum('available_units');
     }
 }

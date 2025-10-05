@@ -27,7 +27,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($messages as $message)
+								@foreach($messages as $index=>$message)
 
 									@php $contactArr = []; 
 										// dd($message->messageStatus->color);
@@ -41,7 +41,7 @@
 										@endphp
 										
 									<tr>
-										<td class="table-plus">1</td>
+										<td class="table-plus">{{$index +1}}</td>
 										<td>{{ substr($message->title, 0, 20) }}</td>
 										<td>{{ substr($message->content, 0, 20) }}</td>
 										<td> <small>{{ substr(implode(',', $contactArr), 0, 40) }}</small></td>

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class MessageContact extends Model
 {
+    protected $fillable = [
+    'message_id', 'contact_id', 'status', 'gateway_ref', 'sent', 'failed'
+    ];
+
     public $table = 'contact_message';
 
      public function message(){

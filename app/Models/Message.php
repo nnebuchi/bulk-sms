@@ -9,6 +9,7 @@ class Message extends Model
     // function contacts(){
     //  return $this->hasManyThrough(MessageContact::class, Contact::class);
     // }
+    protected $fillable = ['user_id', 'type', 'title', 'content','status', 'sent_at','slug'];
 
     public function contacts(){
         return $this->belongsToMany(Contact::class);
