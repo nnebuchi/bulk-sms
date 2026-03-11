@@ -124,8 +124,12 @@ class SmsController extends Controller
         }
 
         $recipients = collect(explode(',', $request->input('to')))
-            ->map(fn($number) => trim($number))
-            ->filter(fn($number) => !empty($number))
+            ->map(function ($number) {
+                return trim($number);
+            })
+            ->filter(function ($number) {
+                return !empty($number);
+            })
             ->unique()
             ->values()
             ->toArray();
