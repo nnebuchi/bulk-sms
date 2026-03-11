@@ -4,12 +4,11 @@ namespace App\Utils;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use App\Interfaces\SmsProviderInterface; // <-- Imported the interface
 
 /**
  * Handles communication with the Ebulk SMS API.
  */
-class EbulkSms implements SmsProviderInterface // <-- Implemented the interface
+class EbulkSms
 {
     protected $baseUrl;
     protected $username;
@@ -30,19 +29,18 @@ class EbulkSms implements SmsProviderInterface // <-- Implemented the interface
      *
      * @param array $recipients Array of phone numbers.
      * @param string $message The message content.
-     * @param string $senderId The sender ID to use.
-     * @return array Returns ['success' => bool, 'message' => string, 'gateway_response' => string, 'gateway_ref' => string|null]
+     * @param string|null $sender The sender ID to use (falls back to default if null).
+     * @return array Returns ['success' => bool, 'message' => string, 'gateway_ref' => string|null]
      */
-    public function sendBatch(array $recipients, string $message, string $senderId): array
+    public function sendBatch(array $recipients, string $message, ?string $sender = null): array
     {
-        // Ensure sender ID is valid (max 11 chars), fallback to default if empty string is passed
-        $finalSenderId = substr(empty($senderId) ? $this->defaultSender : $senderId, 0, 11);
+        $senderId = substr($sender ?? $this->defaultSender, 0, 11);
         
         // Ebulk SMS uses GET request with parameters in the query string
         $params = [
             'username' => $this->username,
             'apikey' => $this->apiKey,
-            'sender' => $finalSenderId,
+            'sender' => $senderId,
             'messagetext' => $message,
             'flash' => 0,
             // Recipients must be a comma-separated string, as per the Node.js sample
@@ -54,7 +52,6 @@ class EbulkSms implements SmsProviderInterface // <-- Implemented the interface
              return [
                 'success' => false,
                 'message' => 'Ebulk SMS credentials are not configured in the environment.',
-                'gateway_response' => 'Missing Credentials',
                 'gateway_ref' => null,
             ];
         }
@@ -62,27 +59,42 @@ class EbulkSms implements SmsProviderInterface // <-- Implemented the interface
         try {
             // Make a GET request (as per the provided Node.js example)
             $response = Http::timeout(30)->get("{$this->baseUrl}/sendsms", $params);
-            
+           
+
             // Ebulk often returns a status code and message separated by a pipe (|) in the body
             $responseBody = trim($response->body());
             $responseArray = explode('|', $responseBody);
-
-            if (strtoupper($responseArray[0]) === 'SUCCESS') {
+            if($responseArray[0] == 'SUCCESS'){
+                 // Failure codes
                 return [
                     'success' => true,
-                    'message' => 'Batch submitted successfully',
                     'gateway_ref' => "EBULK-" . time(),
                     'gateway_response' => $responseBody
                 ];
             }
             
-            // --- FIX: Added a return statement for when the API rejects the request ---
-            return [
-                'success' => false,
-                'message' => "Ebulk SMS Error: " . $responseBody,
-                'gateway_ref' => null,
-                'gateway_response' => $responseBody
-            ];
+
+            // Parse the response string (e.g., "1701|Successfully sent" or "200|Invalid username")
+            // $parts = explode('|', $responseBody, 2);
+            // $statusCode = (int) $parts[0];
+            // $statusMessage = $parts[1] ?? 'Unknown gateway error.';
+
+            // Ebulk Success Codes: 1701 (Success), 1702 (DND check), 1703, 1704
+            // if ($statusCode >= 1701 && $statusCode <= 1704) {
+            //      return [
+            //         'success' => true,
+            //         'message' => "Batch submitted: " . $statusMessage,
+            //         'gateway_ref' => "EBULK-" . time(), 
+            //     ];
+            // }
+
+            // Failure codes
+            // return [
+            //     'success' => false,
+            //     'message' => "Ebulk SMS Error [{$statusCode}]: " . $statusMessage,
+            //     'gateway_ref' => null,
+            //     'gateway_status_code' => $statusCode,
+            // ];
 
         } catch (\Exception $e) {
             Log::error('Ebulk SMS connection error: ' . $e->getMessage(), ['exception' => $e]);
@@ -90,7 +102,6 @@ class EbulkSms implements SmsProviderInterface // <-- Implemented the interface
                 'success' => false,
                 'message' => 'Failed to connect to Ebulk SMS gateway.',
                 'gateway_ref' => null,
-                'gateway_response' => $e->getMessage()
             ];
         }
     }

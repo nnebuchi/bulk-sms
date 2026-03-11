@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Message;
 use App\Models\UnitPurchase;
 use App\Models\MessageContact;
-use App\Factories\SmsProviderFactory; // <-- Added Factory
+use App\Utils\EbulkSms;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -19,14 +19,14 @@ class SmsController extends Controller
     const GSM_CHARS_PER_UNIT = 160;
     const UNICODE_CHARS_PER_UNIT = 70;
 
-    protected $smsFactory;
+    protected $smsService;
 
     /**
-     * Inject the SmsProviderFactory to resolve the active gateway.
+     * Inject the EbulkSms for gateway communication.
      */
-    public function __construct(SmsProviderFactory $smsFactory) 
+    public function __construct(EbulkSms $smsService) 
     {
-        $this->smsFactory = $smsFactory;
+        $this->smsService = $smsService;
     }
 
     /**
@@ -37,9 +37,12 @@ class SmsController extends Controller
      */
     protected function calculateUnits(string $content): int
     {
+        // Simple logic: check for unicode characters to determine segment size
         if (preg_match('/[^\x20-\x7E\r\n\t]/', $content)) {
+            // Unicode message (e.g., non-Latin characters)
             return ceil(mb_strlen($content, 'UTF-8') / self::UNICODE_CHARS_PER_UNIT);
         } else {
+            // Standard GSM message
             return ceil(strlen($content) / self::GSM_CHARS_PER_UNIT);
         }
     }
@@ -53,17 +56,19 @@ class SmsController extends Controller
      */
     protected function deductUnits(\App\Models\User $user, int $unitsNeeded): bool
     {
+        // Get all available unit records for the user, ordered by creation date (FIFO)
         $unitRecords = $user->units()
             ->where('available_units', '>', 0)
             ->orderBy('created_at', 'asc')
             ->get();
 
         if ($user->available_units < $unitsNeeded) {
-            return false;
+            return false; // Insufficient units (should be caught by the caller, but good safety check)
         }
 
         $remainingToDeduct = $unitsNeeded;
 
+        // Use a transaction for safety during deduction
         DB::beginTransaction();
         try {
             foreach ($unitRecords as $unitRecord) {
@@ -72,10 +77,12 @@ class SmsController extends Controller
                 $available = (float) $unitRecord->available_units;
 
                 if ($available >= $remainingToDeduct) {
+                    // This record covers the rest of the deduction
                     $unitRecord->available_units = $available - $remainingToDeduct;
                     $unitRecord->save();
                     $remainingToDeduct = 0;
                 } else {
+                    // Deduct all units from this record and move to the next
                     $remainingToDeduct -= $available;
                     $unitRecord->available_units = 0;
                     $unitRecord->save();
@@ -83,6 +90,7 @@ class SmsController extends Controller
             }
 
             if ($remainingToDeduct > 0) {
+                // Should not happen if initial check passes, but rollback if deduction failed
                 DB::rollBack();
                 return false;
             }
@@ -91,10 +99,12 @@ class SmsController extends Controller
             return true;
         } catch (\Exception $e) {
             DB::rollBack();
+            // Log the error
             Log::error("Unit deduction failed for user {$user->id}: " . $e->getMessage());
             return false;
         }
     }
+
 
     /**
      * Send an SMS message via the API.
@@ -110,8 +120,8 @@ class SmsController extends Controller
 
         // 1. Validation
         $validator = Validator::make($request->all(), [
-            'to' => 'required|string|regex:/^(\+?\d{7,15},?)+$/', 
-            'from' => 'nullable|string|max:11',
+            'to' => 'required|string|regex:/^(\+?\d{7,15},?)+$/', // Comma separated phone numbers
+            'from' => 'nullable|string|max:11', // Sender ID
             'content' => 'required|string|max:1000',
         ]);
 
@@ -135,7 +145,7 @@ class SmsController extends Controller
         }
 
         $messageContent = $request->input('content');
-        $senderId = $request->input('from') ?? 'Skezzole';
+        $senderId = $request->input('from') ?? 'Skezzole'; // Use a default sender ID if none provided
 
         $unitsPerSms = $this->calculateUnits($messageContent);
         $totalUnitsRequired = $unitsPerSms * count($recipients);
@@ -150,7 +160,7 @@ class SmsController extends Controller
             ], 403);
         }
 
-        // 3. Unit Deduction (Transactional)
+        // 3. Unit Deduction (Transactional) - **Happens before gateway call**
         if (!$this->deductUnits($user, $totalUnitsRequired)) {
             return response()->json([
                 'status' => 'error',
@@ -161,12 +171,14 @@ class SmsController extends Controller
         // --- START BATCH SEND LOGIC ---
         $httpFailed = false;
         $gatewayRef = null;
-        $errorMessage = ''; 
+        $errorMessage = ''; // Variable to hold specific error message for response
 
+        // Use a DB transaction to ensure Message and MessageContact records are only created 
+        // if the external gateway accepts the batch.
         DB::beginTransaction();
 
         try {
-            // 4. Record Message in DB 
+            // 4. Record Message in DB (messages table) - Status 0: Processing
             $messageRecord = Message::create([
                 'user_id' => $user->id,
                 'type' => 'sms',
@@ -177,26 +189,25 @@ class SmsController extends Controller
                 'slug'=>Str::random(30),
             ]);
 
-            // --- 5. Resolve Active Provider & Dispatch ---
-            // The factory determines which provider is active (e.g., Ebulk, Twilio)
-            $activeSmsService = $this->smsFactory->getActiveProvider();
-            
-            // Send using the uniform interface method
-            $gatewayResponse = $activeSmsService->sendBatch($recipients, $messageContent, $senderId);
+            // --- 5. Batch Dispatch SMS via Third-Party API (EbulkSms) ---
+            // Use the injected service to handle the Ebulk API call
+            $gatewayResponse = $this->smsService->sendBatch($recipients, $messageContent, $senderId);
             
             // --- 6. Handle Gateway Response & Logging ---
+            
             if ($gatewayResponse['success']) {
-                Log::info('Message '.$messageRecord->id.' sent successfully via ' . get_class($activeSmsService) . '. Gateway Response: ' . $gatewayResponse['gateway_response']);
+                Log::info('Message '.$messageRecord->id.'sent successfully. Gateway Response: ' . $gatewayResponse['gateway_response']);
                 $gatewayRef = $gatewayResponse['gateway_ref'];
                 $messagesSentCount = count($recipients);
                 
+                // --- 6.1. Record Individual Status (MessageContact table) via Bulk Insert ---
                 $contactMessageRecords = [];
                 $now = Carbon::now();
                 foreach ($recipients as $number) {
                     $contactMessageRecords[] = [
                         'contact_id' => 0,
                         'message_id' => $messageRecord->id,
-                        'status' => '0', 
+                        'status' => '0', // 0: Pending/Submitted (waiting for DLR)
                         'gateway_ref' => $gatewayRef,
                         'sent' => $number,
                         'failed' => null,
@@ -205,11 +216,15 @@ class SmsController extends Controller
                     ];
                 }
 
+                // Bulk insert the message contact records for efficiency
                 MessageContact::insert($contactMessageRecords);
+
+                // Update the parent message status to '1': Sent/Submitted
                 $messageRecord->update(['status' => '1']); 
                 
                 DB::commit();
 
+                // 7. Final Success Response
                 return response()->json([
                     'status' => 'success',
                     'message' => 'SMS request processed and submitted to gateway in batch.',
@@ -223,9 +238,10 @@ class SmsController extends Controller
                 ], 200);
 
             } else {
+                // Gateway service returned failure (API key issue, quota, bad request, etc.)
                 $httpFailed = true;
                 $errorMessage = $gatewayResponse['message'];
-                Log::error("SMS batch failed for user {$user->id} using " . get_class($activeSmsService) . ". Error: {$errorMessage}");
+                Log::error("Ebulk SMS batch failed for user {$user->id}. Error: {$errorMessage}");
             }
 
         } catch (\Exception $e) {
@@ -236,8 +252,9 @@ class SmsController extends Controller
 
         // --- ERROR HANDLING (Gateway Failure) ---
         if ($httpFailed) {
-            DB::rollBack(); 
+            DB::rollBack(); // Rollback Message and MessageContact creation
             
+            // LOG CRITICAL ALERT for manual refund (NO AUTOMATIC REFUND)
             Log::critical("BATCH FAILED AFTER UNIT DEDUCTION. MANUAL REFUND REQUIRED FOR USER {$user->id}. Units: {$totalUnitsRequired}. Reason: {$errorMessage}");
 
             return response()->json([
@@ -245,10 +262,89 @@ class SmsController extends Controller
                 'message' => $errorMessage . ' Units were deducted but the batch failed. An administrator has been notified to investigate and process a manual refund if applicable.',
                 'gateway_error' => true,
                 'units_deducted' => $totalUnitsRequired,
-                'new_balance' => $user->fresh()->available_units, 
+                'new_balance' => $user->fresh()->available_units, // Show user their deducted balance
             ], 502);
         }
     }
 
-    // ... (balance and status methods remain exactly the same) ...
+    /**
+     * Get the user's available SMS balance.
+     * GET /api/user/balance
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function balance(Request $request)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Current SMS unit balance.',
+            'available_units' => $user->available_units,
+        ], 200);
+    }
+
+    /**
+     * Get the delivery status of a specific message request.
+     * GET /api/sms/status/{message}
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Message $message The Message instance injected by Route-Model binding.
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function status(Request $request, Message $message)
+    {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        // 1. Authorization Check: Ensure the user owns this message record.
+        if ($message->user_id !== $user->id) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Forbidden: You do not have permission to view this message.'
+            ], 403);
+        }
+
+        // 2. Fetch related delivery records
+        $deliveryReports = MessageContact::where('message_id', $message->id)->get();
+
+        // 3. Helper to map status codes to human-readable strings
+        $statusMap = [
+            '0' => 'Pending',
+            '1' => 'Sent',
+            '2' => 'Delivered', // Assuming '2' means delivered
+            '3' => 'Failed'
+        ];
+
+        // 4. Format the recipient data
+        $recipientsData = $deliveryReports->map(function ($report) use ($statusMap) {
+            $number = $report->status == '3' ? $report->failed : $report->sent;
+            return [
+                'number' => $number,
+                'status' => $statusMap[$report->status] ?? 'Unknown',
+                'gateway_ref' => $report->gateway_ref,
+            ];
+        });
+
+        // 5. Create a summary
+        $summary = [
+            'total_recipients' => $deliveryReports->count(),
+            'sent' => $deliveryReports->whereIn('status', ['1', '2'])->count(),
+            'delivered' => $deliveryReports->where('status', '2')->count(),
+            'failed' => $deliveryReports->where('status', '3')->count(),
+        ];
+
+        // 6. Return the final response
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Message status retrieved.',
+            'request_id' => $message->id,
+            'submitted_at' => Carbon::createFromTimestamp($message->sent_at)->toIso8601String(),
+            'content' => $message->content,
+            'summary' => $summary,
+            'recipients' => $recipientsData,
+        ], 200);
+    }
 }
